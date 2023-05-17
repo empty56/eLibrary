@@ -16,22 +16,22 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    private final AccountRepository repository;
+    private final AccountServicesImpl accountServices;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request){
         var account = Account.builder()
+                .username(request.getUsername())
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
                 .build();
-        repository.save(account);
+        accountServices.createAccount(account);
         var jwtToken = jwtService.generateToken(account);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return AuthenticationResponse.builder().token(jwtToken).role(Role.USER).build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
@@ -40,9 +40,8 @@ public class AuthenticationService {
                         request.getEmail(),
                         request.getPassword())
         );
-        var account = repository.findAccountByEmail(request.getEmail())
-                .orElseThrow(() -> new ResourceNotFoundException("No such account"));
+        var account = accountServices.findByEmail(request.getEmail());
         var jwtToken = jwtService.generateToken(account);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return AuthenticationResponse.builder().token(jwtToken).role(account.getRole()).build();
     }
 }

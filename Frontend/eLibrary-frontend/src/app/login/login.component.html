@@ -1,0 +1,23 @@
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form (ngSubmit)="submitForm()" [formGroup]="form" autocomplete="off"> 
+        <h3>Login</h3>
+
+        <label for="email">Email</label>
+        <input matInput matNativeControl type="text"  placeholder="Email" id="email" formControlName="email" name = "email">
+
+        <label for="password">Password</label>
+        <input matInput matNativeControl type="password"  placeholder="Password" formControlName="password" id="password">
+        <div *ngIf="loginError" class="error-message">
+            Invalid email or password.
+        </div>
+        <button>Log In</button>
+        <a type="submit" routerLink="../signup" routerLinkActive="active" class="nav-link">Not registered? Sign up</a>
+    </form>
+</body>

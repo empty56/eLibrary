@@ -1,7 +1,6 @@
 package com.diploma.elibrary.service;
 
 import com.diploma.elibrary.exception.AlreadyExists;
-import com.diploma.elibrary.exception.AuthorizationFailed;
 import com.diploma.elibrary.exception.ResourceNotFoundException;
 import com.diploma.elibrary.model.Account;
 import com.diploma.elibrary.model.Role;
@@ -24,19 +23,6 @@ public class AccountServicesImpl implements AccountService {
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
     }
-    @Override
-    public Account findByEmail(String email) {
-        Account account = accountRepository.findAccountByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        return account;
-    }
-
-    @Override
-    public Account findByUsername(String username) {
-        Account account = accountRepository.findAccountByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        return account;
-    }
 
     @Override
     public Account updatePassword(Long id, String new_password) {
@@ -48,24 +34,60 @@ public class AccountServicesImpl implements AccountService {
     }
 
     @Override
+    public Account updateAccount(Long id, Account accountDetails) {
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Account doesn't exist with this id: " + id));
+        if(usernameExistsUpdate(account)) {
+            throw new AlreadyExists("Username already exists");
+        }
+        account.setUsername(accountDetails.getUsername());
+        account.setFirstname(accountDetails.getFirstname());
+        account.setLastname(accountDetails.getLastname());
+        return accountRepository.save(account);
+    }
+
+
+
+    @Override
     public Account createAccount(Account account) {
         account.setRole(Role.USER);
         account.setBlocked(false);
-        if(emailExist(account.getEmail()))
-        {
+        if(emailExists(account.getEmail())) {
             throw new AlreadyExists("Email already exists");
+        }
+        else if(usernameExists(account.getUsername())) {
+            throw new AlreadyExists("Username already exists");
         }
         String hashed_password = passwordEncoder.encode(account.getPassword());
         account.setPassword(hashed_password);
         return accountRepository.save(account);
     }
 
-    private boolean emailExist(String email) {
-        Account account = accountRepository.findAccountByEmail(email)
+    @Override
+    public boolean emailExists(String email) {
+        Optional<Account> account = accountRepository.findAccountByEmail(email);
+        return account.isPresent();
+    }
+
+    @Override
+    public Account findByEmail(String email) {
+        return accountRepository.findAccountByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        if(account == null){
+    }
+
+
+    @Override
+    public boolean usernameExists(String username) {
+        Optional<Account> account = accountRepository.findAccountByUsername(username);
+        return account.isPresent();
+    }
+
+    private boolean usernameExistsUpdate(Account accountDetails) {
+        Account account = accountRepository.findAccountByUsername(accountDetails.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        if (account == null) {
             return false;
         }
-        return account.getEmail().equals(email);
+        else return !account.getId().equals(accountDetails.getId());
     }
 }

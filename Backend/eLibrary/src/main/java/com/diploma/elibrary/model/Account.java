@@ -1,13 +1,13 @@
 package com.diploma.elibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,6 +34,13 @@ public class Account implements UserDetails {
     private String firstname;
     @Column(name = "lastname")
     private String lastname;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "account")
+    private List<Review> reviews = new ArrayList<>();
+    @JsonManagedReference
+    @OneToMany(mappedBy = "account")
+    private List<AccountBook> accountBooks = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

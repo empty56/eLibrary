@@ -1,0 +1,64 @@
+<head>
+    <title>SignUp</title>
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form (submit)="onSubmit()">
+        <h3>Sign Up</h3>
+
+        <label for="email">Email*</label>
+        <input matInput matNativeControl type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"  placeholder="Email" id="email">
+          <div class="error-message">
+            <mat-error *ngIf=" emailExistsError">
+              Account with such email already exists
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('email')  && !emailFormControl.hasError('required') && !emailExistsError">
+            Please enter a valid email address
+          </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required') && errorTriggered && !emailExistsError" >
+            Email is <strong>required</strong>
+          </mat-error>
+        </div>
+        <label for="username">Username*</label>
+        <input matInput matNativeControl type="text" matInput [formControl]="usernameFormControl" placeholder="Username" id="username">
+        <div class="error-message">
+        <mat-error *ngIf="usernameExistsError">
+            Username is already taken
+        </mat-error>
+        <mat-error *ngIf="usernameFormControl.hasError('required')&& errorTriggered && !usernameExistsError" class="error-message">
+            Username is <strong>required</strong>
+          </mat-error>
+        </div>  
+        <label for="firstname">Firstname*</label>
+        <input matInput matNativeControl type="text" matInput [formControl]="firstnameFormControl" placeholder="Firstname" id="firstname">
+        <div class="error-message">
+        <mat-error *ngIf="firstnameFormControl.hasError('required')&& errorTriggered" class="error-message">
+            Firstname is <strong>required</strong>
+          </mat-error>
+        </div>
+        <label for="lastname">Lastname*</label>
+        <input matInput matNativeControl type="text" matInput [formControl]="lastnameFormControl" placeholder="Lastname" id="lastname">
+        <div class="error-message">
+        <mat-error *ngIf="lastnameFormControl.hasError('required')&& errorTriggered" class="error-message">
+            Lastname is <strong>required</strong>
+          </mat-error>
+        </div>
+        <label for="password">Password*</label>
+        <div class="password-input">
+            <input matInput matNativeControl [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl" placeholder="Password" id="password">
+            <button mat-icon-button matSuffix (click)="onTogglePasswordVisibility($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+        </div>
+        <div class="error-message">
+        <mat-error *ngIf="passwordFormControl.hasError('required')&& errorTriggered" type="text" class="error-message">
+            Password is <strong>required</strong>
+          </mat-error>
+        </div>
+        <button class="main-button">Sing Up</button>
+        <a type="submit" routerLink="../login" routerLinkActive="active" class="nav-link">Have an account? Login</a>
+    </form>
+</body>

@@ -2,9 +2,15 @@ package com.diploma.elibrary.service.interfaces;
 
 import com.diploma.elibrary.model.Book;
 
+import java.util.List;
+
 public interface BookService {
     Book findByTitle(String title);
-    Book createBook(Book account);
-
+    List<Book> searchBooks(String search);
+    List<Book> getMostPopularBooks();
+    List<Book> getAllBooks();
+    Book createBook(Book book);
+    Book updateBook(Long id, Book bookDetails);
+    void deleteBook(Long id);
 
 }

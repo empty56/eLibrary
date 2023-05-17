@@ -1,9 +1,15 @@
 package com.diploma.elibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +31,17 @@ public class Book {
     @Column(name = "description")
     private String description;
     @Column(name = "published")
-    private String published;
+    private Integer published;
     @Column(name = "pages")
-    private String pages;
+    private Integer pages;
+    @JsonManagedReference
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Link link;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "book")
+    private List<Review> reviews = new ArrayList<>();
+    @JsonManagedReference
+    @OneToMany(mappedBy = "book")
+    private List<AccountBook> accountBooks = new ArrayList<>();
+
 }
