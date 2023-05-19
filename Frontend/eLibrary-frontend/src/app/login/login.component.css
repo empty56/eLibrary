@@ -64,7 +64,7 @@ input{
 ::placeholder{
     color: #e5e5e5;
 }
-button{
+.main-button{
     margin-top: 50px;
     width: 100%;
     background-color: #373330;
@@ -107,4 +107,23 @@ a{
     display: block;
     height: 0px;
     font-size: 12px; 
+}
+.password-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+  
+  .password-input input {
+    flex: 1;
+}
+  
+  .password-input button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-42%);
+}
+  .material-icons{
+    font-family: 'Material Icons' !important;
 }

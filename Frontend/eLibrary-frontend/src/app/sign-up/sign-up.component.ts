@@ -33,7 +33,7 @@ export class SignUpComponent {
     constructor(private accountService: AccountService, private router: Router){}
 
   async onSubmit(){
-    if (this.emailFormControl.hasError('required')) {
+    if (this.emailFormControl.hasError('required') || this.emailFormControl.hasError('email')) {
       this.errorTriggered = true;
     }
     else if (this.usernameFormControl.hasError('required')) {
@@ -48,7 +48,7 @@ export class SignUpComponent {
     else if (this.passwordFormControl.hasError('required')) {
       this.errorTriggered = true;
     }
-    else if(!this.emailFormControl.hasError('required') && await this.accountService.emailExists(this.emailFormControl.value))
+    else if(!this.emailFormControl.hasError('required') && !this.emailFormControl.hasError('email') && await this.accountService.emailExists(this.emailFormControl.value))
     {
       this.emailExistsError = true;
     }
@@ -62,11 +62,9 @@ export class SignUpComponent {
       this.account.password = this.passwordFormControl.value;
       this.account.firstname = this.firstnameFormControl.value;
       this.account.lastname = this.lastnameFormControl.value;
-      console.log(this.account);
       this.accountService
       .registerAccount(this.account)
       .subscribe((response) => {
-        console.log(response);
         this.router.navigate(['/login']);  
       });
     }

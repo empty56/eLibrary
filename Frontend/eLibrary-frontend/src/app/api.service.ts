@@ -25,4 +25,7 @@ private baseUrl = "http://localhost:8080/library";
   usernameExists(username: string){
     return this.http.get(`${this.baseUrl}/username/${username}`);
   }
+  getAccount(username: string): Observable<Account>{
+    return this.http.get<Account>(`${this.baseUrl}/user/${username}`);
+  }
 }

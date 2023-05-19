@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
 import { Account } from './account';
-import { switchMap } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -20,5 +18,8 @@ export class AccountService {
   }
   usernameExists(username : string) {
     return firstValueFrom(this.apiService.usernameExists(username));
+  }
+  getAccount(username : string) {
+    return firstValueFrom(this.apiService.getAccount(username));
   }
 }
