@@ -72,8 +72,15 @@ public class AccountServicesImpl implements AccountService {
     @Override
     public Account findByEmail(String email) {
         return accountRepository.findAccountByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User with this email not found"));
     }
+
+    @Override
+    public Account findByUsername(String username) {
+        return accountRepository.findAccountByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User with this username not found"));
+    }
+
 
 
     @Override
@@ -84,7 +91,7 @@ public class AccountServicesImpl implements AccountService {
 
     private boolean usernameExistsUpdate(Account accountDetails) {
         Account account = accountRepository.findAccountByUsername(accountDetails.getUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User was not found"));
         if (account == null) {
             return false;
         }

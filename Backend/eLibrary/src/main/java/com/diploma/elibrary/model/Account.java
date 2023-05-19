@@ -35,6 +35,14 @@ public class Account implements UserDetails {
     @Column(name = "lastname")
     private String lastname;
 
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+
+
+
     @JsonManagedReference
     @OneToMany(mappedBy = "account")
     private List<Review> reviews = new ArrayList<>();

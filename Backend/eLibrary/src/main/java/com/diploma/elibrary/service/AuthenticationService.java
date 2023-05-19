@@ -1,9 +1,7 @@
 package com.diploma.elibrary.service;
 
-import com.diploma.elibrary.exception.ResourceNotFoundException;
 import com.diploma.elibrary.model.Account;
 import com.diploma.elibrary.model.Role;
-import com.diploma.elibrary.repository.AccountRepository;
 import com.diploma.elibrary.security.auth.AuthenticationRequest;
 import com.diploma.elibrary.security.auth.AuthenticationResponse;
 import com.diploma.elibrary.security.auth.RegisterRequest;
@@ -35,9 +33,11 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
+
+        var account2 = accountServices.findByEmail(request.getEmail());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
+                        account2.getUsername(),
                         request.getPassword())
         );
         var account = accountServices.findByEmail(request.getEmail());
