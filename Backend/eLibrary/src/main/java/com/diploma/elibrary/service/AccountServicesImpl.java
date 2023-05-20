@@ -37,10 +37,6 @@ public class AccountServicesImpl implements AccountService {
     public Account updateAccount(Long id, Account accountDetails) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Account doesn't exist with this id: " + id));
-        if(usernameExistsUpdate(account)) {
-            throw new AlreadyExists("Username already exists");
-        }
-        account.setUsername(accountDetails.getUsername());
         account.setFirstname(accountDetails.getFirstname());
         account.setLastname(accountDetails.getLastname());
         return accountRepository.save(account);
@@ -54,9 +50,6 @@ public class AccountServicesImpl implements AccountService {
         account.setBlocked(false);
         if(emailExists(account.getEmail())) {
             throw new AlreadyExists("Email already exists");
-        }
-        else if(usernameExists(account.getUsername())) {
-            throw new AlreadyExists("Username already exists");
         }
         String hashed_password = passwordEncoder.encode(account.getPassword());
         account.setPassword(hashed_password);
@@ -75,26 +68,6 @@ public class AccountServicesImpl implements AccountService {
                 .orElseThrow(() -> new ResourceNotFoundException("User with this email not found"));
     }
 
-    @Override
-    public Account findByUsername(String username) {
-        return accountRepository.findAccountByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User with this username not found"));
-    }
 
 
-
-    @Override
-    public boolean usernameExists(String username) {
-        Optional<Account> account = accountRepository.findAccountByUsername(username);
-        return account.isPresent();
-    }
-
-    private boolean usernameExistsUpdate(Account accountDetails) {
-        Account account = accountRepository.findAccountByUsername(accountDetails.getUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User was not found"));
-        if (account == null) {
-            return false;
-        }
-        else return !account.getId().equals(accountDetails.getId());
-    }
 }

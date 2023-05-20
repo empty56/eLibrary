@@ -21,11 +21,10 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request){
         var account = Account.builder()
-                .username(request.getUsername())
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(request.getPassword())
                 .build();
         accountServices.createAccount(account);
         var jwtToken = jwtService.generateToken(account);
@@ -33,11 +32,9 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
-
-        var account2 = accountServices.findByEmail(request.getEmail());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        account2.getUsername(),
+                        request.getEmail(),
                         request.getPassword())
         );
         var account = accountServices.findByEmail(request.getEmail());

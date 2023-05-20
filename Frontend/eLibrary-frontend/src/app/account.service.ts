@@ -16,10 +16,9 @@ export class AccountService {
   emailExists(email : string) {
     return firstValueFrom(this.apiService.emailExists(email));
   }
-  usernameExists(username : string) {
-    return firstValueFrom(this.apiService.usernameExists(username));
-  }
   getAccount(username : string) {
     return firstValueFrom(this.apiService.getAccount(username));
   }
+
+  
 }

@@ -17,8 +17,8 @@ export class CurrentUserService {
     let token = localStorage.getItem('token');
     if (token) {
       const decodedToken  = this.decodeToken(token);
-      const username = decodedToken.sub;
-      const account = await this.accountService.getAccount(username);
+      const email = decodedToken.sub;
+      const account = await this.accountService.getAccount(email);
       this.currentUser$.next(account);
     } else {
       this.currentUser$.next(null);

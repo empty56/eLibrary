@@ -19,11 +19,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { AdminMainPageComponent } from './admin-main-page/admin-main-page.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AddBookDialogComponent } from './add-book-dialog/add-book-dialog.component';
 import { ManageBooksDialogComponent } from './manage-books-dialog/manage-books-dialog.component';
 import { AccountStatusUpdateDialogComponent } from './account-status-update-dialog/account-status-update-dialog.component';
 import { ManageFeedbackDialogComponent } from './manage-feedback-dialog/manage-feedback-dialog.component';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,12 @@ import { ManageFeedbackDialogComponent } from './manage-feedback-dialog/manage-f
     MatIconModule,
     MatDialogModule
   ],
-  providers: [CurrentUserService],
+  providers: [CurrentUserService,
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi   : true,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

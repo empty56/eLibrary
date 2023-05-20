@@ -22,16 +22,6 @@
             Email is <strong>required</strong>
           </mat-error>
         </div>
-        <label for="username">Username*</label>
-        <input matInput matNativeControl type="text" matInput [formControl]="usernameFormControl" placeholder="Username" id="username">
-        <div class="error-message">
-        <mat-error *ngIf="usernameExistsError">
-            Username is already taken
-        </mat-error>
-        <mat-error *ngIf="usernameFormControl.hasError('required')&& errorTriggered && !usernameExistsError" class="error-message">
-            Username is <strong>required</strong>
-          </mat-error>
-        </div>  
         <label for="firstname">Firstname*</label>
         <input matInput matNativeControl type="text" matInput [formControl]="firstnameFormControl" placeholder="Firstname" id="firstname">
         <div class="error-message">

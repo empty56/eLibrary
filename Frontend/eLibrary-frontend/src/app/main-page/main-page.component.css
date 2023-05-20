@@ -1,0 +1,19 @@
+header {
+    height: 64px;
+    display: flex;
+  }
+  
+  header mat-toolbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #363636;
+    color: white;
+  }
+
+  header mat-toolbar .name {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }

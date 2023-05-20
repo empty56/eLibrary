@@ -10,7 +10,6 @@ export const authGuard = () => {
     return currentUserService.currentUser$.pipe(
         filter((currentUser) => currentUser !== undefined),
         map((currentUser) => {
-            console.log(currentUser);
           if (!currentUser || currentUser.role != 'ADMIN') {
             router.navigateByUrl('/');
             return false;
@@ -28,7 +27,6 @@ export const isLoggedIn = () => {
   return auth.isLoggedIn$.pipe(
     filter((isLoggedIn) => isLoggedIn !== undefined),
         map((isLoggedIn) => {
-            console.log("isLoggedIn:", isLoggedIn);
           if (isLoggedIn) {
             currentUserService.currentUser$.subscribe((value) => {
               if(!value)

@@ -16,19 +16,20 @@ public class AccountController {
         this.service = accountService;
     }
 
-    @GetMapping("/username/{username}")
-    public ResponseEntity<Boolean> getByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(service.usernameExists(username));
-    }
 
-    @GetMapping("/email/{email}")
-    public ResponseEntity<Boolean> getByEmail(@PathVariable String email) {
+    @GetMapping("/checkEmail/{email}")
+    public ResponseEntity<Boolean> checkEmail(@PathVariable String email) {
         return ResponseEntity.ok(service.emailExists(email));
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Account> getByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(service.findByEmail(email));
+    }
+
     @PutMapping("/account/{id}/new-password")
-    public ResponseEntity<Account> setNewPassword(@PathVariable Long id, @RequestParam String new_password) {
-        return ResponseEntity.ok(service.updatePassword(id, new_password));
+    public ResponseEntity<Account> setNewPassword(@PathVariable Long id, @RequestParam String password) {
+        return ResponseEntity.ok(service.updatePassword(id, password));
     }
 
     @PostMapping("/account/update/{id}")

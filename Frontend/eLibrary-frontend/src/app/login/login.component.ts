@@ -30,7 +30,6 @@ export class LoginComponent {
     this.authService
       .login(this.form.get('email')?.value, this.form.get('password')?.value)
       .subscribe( async (response) => {
-        await this.currentUserService.setCurrentUser();
         if(response.role == "USER")
         {
           this.router.navigate(['/library']);

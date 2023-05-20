@@ -22,9 +22,7 @@ export class SignUpComponent {
     hide = true;
     errorTriggered : boolean = false;
     emailExistsError : boolean = false;
-    usernameExistsError : boolean = false;
     emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-    usernameFormControl = new FormControl('', [Validators.required]);
     firstnameFormControl = new FormControl('', [Validators.required]);
     lastnameFormControl = new FormControl('', [Validators.required]);
     passwordFormControl = new FormControl('', [Validators.required]);
@@ -33,10 +31,8 @@ export class SignUpComponent {
     constructor(private accountService: AccountService, private router: Router){}
 
   async onSubmit(){
+    console.log(this.passwordFormControl.value);
     if (this.emailFormControl.hasError('required') || this.emailFormControl.hasError('email')) {
-      this.errorTriggered = true;
-    }
-    else if (this.usernameFormControl.hasError('required')) {
       this.errorTriggered = true;
     }
     else if (this.firstnameFormControl.hasError('required')) {
@@ -52,13 +48,8 @@ export class SignUpComponent {
     {
       this.emailExistsError = true;
     }
-    else if(!this.usernameFormControl.hasError('required') && await this.accountService.usernameExists(this.usernameFormControl.value))
-    {
-      this.usernameExistsError = true;
-    }
     else{
       this.account.email = this.emailFormControl.value;
-      this.account.username = this.usernameFormControl.value;
       this.account.password = this.passwordFormControl.value;
       this.account.firstname = this.firstnameFormControl.value;
       this.account.lastname = this.lastnameFormControl.value;

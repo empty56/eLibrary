@@ -22,7 +22,7 @@ export class AdminMainPageComponent implements OnInit{
   
   constructor(private dialog: MatDialog, private authService: AuthService, private router: Router, private currentUserService: CurrentUserService) {}
   ngOnInit(): void {
-      this.getName();
+      this.getCurrentAccount();
     }
   openAddBooksDialog(): void {
     this.dialog.open(AddBookDialogComponent);
@@ -46,8 +46,7 @@ export class AdminMainPageComponent implements OnInit{
   }
 
 
-  private getName() {
-    
+  private getCurrentAccount() {
     this.currentUserService.currentUser$.subscribe((data) => {
       this.account = data;
     });
