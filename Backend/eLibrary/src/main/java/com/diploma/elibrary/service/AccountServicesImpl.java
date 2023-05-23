@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,6 +41,7 @@ public class AccountServicesImpl implements AccountService {
                 .orElseThrow(() -> new ResourceNotFoundException("Account doesn't exist with this id: " + id));
         account.setFirstname(accountDetails.getFirstname());
         account.setLastname(accountDetails.getLastname());
+        account.setBlocked(accountDetails.isBlocked());
         return accountRepository.save(account);
     }
 
@@ -54,6 +57,11 @@ public class AccountServicesImpl implements AccountService {
         String hashed_password = passwordEncoder.encode(account.getPassword());
         account.setPassword(hashed_password);
         return accountRepository.save(account);
+    }
+
+    @Override
+    public List<Account> getUsers() {
+        return accountRepository.getAccountsByRole().orElse(new ArrayList<>());
     }
 
     @Override

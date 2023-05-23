@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { LoginComponent } from './login/login.component';
-import { MainPageComponent } from './main-page/main-page.component';
-import { AdminMainPageComponent } from './admin-main-page/admin-main-page.component';
-import { authGuard, isLoggedIn } from './auth.guard';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LoginComponent } from './components/login/login.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { AdminMainPageComponent } from './components/admin-main-page/admin-main-page.component';
+import { authGuard, isLoggedIn } from './helpers/auth.guard';
 
 
 const routes: Routes = [

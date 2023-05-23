@@ -2,6 +2,8 @@ package com.diploma.elibrary.service.interfaces;
 
 import com.diploma.elibrary.model.Account;
 
+import java.util.List;
+
 public interface AccountService {
     boolean emailExists(String email);
     Account findByEmail(String email);
@@ -10,5 +12,6 @@ public interface AccountService {
     Account updateAccount(Long id, Account accountDetails);
     Account createAccount(Account account);
 
+    List<Account> getUsers();
 
 }

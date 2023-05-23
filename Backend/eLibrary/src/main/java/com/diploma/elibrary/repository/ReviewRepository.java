@@ -12,4 +12,7 @@ import java.util.Optional;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Optional<List<Review>> findAllByBook(Book book);
+
+
+
 }

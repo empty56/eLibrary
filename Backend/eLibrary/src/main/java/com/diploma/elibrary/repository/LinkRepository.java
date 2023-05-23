@@ -11,4 +11,5 @@ import java.util.Optional;
 @Repository
 public interface LinkRepository extends JpaRepository<Link, Long> {
     Optional<List<Link>> findAllByBook(Book book);
+    void deleteLinksByBook(Book book);
 }

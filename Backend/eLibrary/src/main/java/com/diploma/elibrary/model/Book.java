@@ -1,5 +1,6 @@
 package com.diploma.elibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name="books")
+@JsonIgnoreProperties({"reviews", "accountBooks"})
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,4 +46,19 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private List<AccountBook> accountBooks = new ArrayList<>();
 
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", subtitle='" + subtitle + '\'' +
+                ", authors='" + authors + '\'' +
+                ", genre='" + genre + '\'' +
+                ", description='" + description + '\'' +
+                ", published=" + published +
+                ", pages=" + pages +
+                ", link=" + link +
+                '}';
+    }
 }
