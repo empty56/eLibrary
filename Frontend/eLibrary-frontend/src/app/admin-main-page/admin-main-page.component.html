@@ -1,0 +1,19 @@
+  <header>
+    <mat-toolbar>
+      <div class="name">{{account.lastname}} {{account.firstname}}</div>
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+  </header>
+  <div class="container">
+    <div class="background"></div>
+      <div class="content">
+        <label>Admin Menu</label>
+        <button mat-button (click)="openAddBooksDialog()">Add Books</button>
+        <button mat-button (click)="openUpdateDeleteBooksDialog()">Update/Delete Books</button>
+        <button mat-button (click)="openUserLockUnlockDialog()">User Lock/Unlock</button>
+        <button mat-button (click)="openFeedbackRemovalDialog()">Feedback Removal</button>
+      </div>
+  </div>
+

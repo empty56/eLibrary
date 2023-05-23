@@ -13,12 +13,10 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
-    private final LinkServiceImpl linkService;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, LinkServiceImpl linkService) {
+    public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-        this.linkService = linkService;
     }
     @Override
     public Book findByTitle(String title) {
@@ -56,6 +54,7 @@ public class BookServiceImpl implements BookService {
     public Book updateBook(Long id, Book bookDetails) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Book doesn't exist with this id: " + id));
+        book.setLink(bookDetails.getLink());
         book.setGenre(bookDetails.getGenre());
         book.setAuthors(bookDetails.getAuthors());
         book.setPublished(bookDetails.getPublished());
@@ -69,7 +68,7 @@ public class BookServiceImpl implements BookService {
     public void deleteBook(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Book doesn't exist with this id: " + id));
-        linkService.deleteLink(book);
         bookRepository.delete(book);
+
     }
 }

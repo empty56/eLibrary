@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("api")
+@RequestMapping("library")
 public class AccountController {
 
     private final AccountServicesImpl service;
@@ -34,14 +32,9 @@ public class AccountController {
         return ResponseEntity.ok(service.updatePassword(id, password));
     }
 
-    @PutMapping("/account/update/{id}")
+    @PostMapping("/account/update/{id}")
     public ResponseEntity<Account> updateAccount(@PathVariable Long id,@RequestBody Account account) {
         return ResponseEntity.ok(service.updateAccount(id, account));
-    }
-
-    @GetMapping("/users")
-    public ResponseEntity<List<Account>> getUsers() {
-        return ResponseEntity.ok(service.getUsers());
     }
 
 }

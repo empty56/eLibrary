@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("library")
 public class ReviewController {
     private final ReviewServiceImpl service;
     @Autowired

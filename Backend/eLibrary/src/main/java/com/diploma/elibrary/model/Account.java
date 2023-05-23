@@ -1,6 +1,5 @@
 package com.diploma.elibrary.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,12 +11,10 @@ import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 @Entity
 @Table(name="accounts")
-@JsonIgnoreProperties({"reviews", "accountBooks"})
 public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +37,9 @@ public class Account implements UserDetails {
     public String getUsername() {
         return email;
     }
+
+
+
 
 
     @JsonManagedReference
