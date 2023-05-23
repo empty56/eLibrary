@@ -26,4 +26,14 @@ public class Link {
     @Column(name = "thumbnail_link")
     private String thumbnail_link;
 
+    @Override
+    public String toString() {
+        return "Link{" +
+                "id=" + id +
+                ", audio_link='" + audio_link + '\'' +
+                ", pdf_link='" + pdf_link + '\'' +
+                ", thumbnail_link='" + thumbnail_link + '\'' +
+                '}';
+    }
+
 }

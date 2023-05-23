@@ -1,0 +1,39 @@
+<div class="block">
+    <div class="content">
+        <label class="name">Add book</label>
+        <form class="form" [formGroup]="bookForm">
+            <mat-form-field class="input">
+                <mat-label>Title</mat-label>
+                <input matInput matNativeControl type="text" matInput formControlName = "title">
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-label>Subtitle</mat-label>
+                <input matInput matNativeControl type="text" matInput formControlName = "subtitle">
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-label>Authors</mat-label>
+                <input matInput matNativeControl type="text" matInput formControlName = "authors">
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-label>Genre</mat-label>
+                <input matInput matNativeControl type="text" matInput formControlName = "genre">
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-label>Description</mat-label>
+                <input matInput matNativeControl type="text" matInput formControlName = "description">
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-label>Published</mat-label>
+                <input matInput matNativeControl type="number" matInput formControlName = "published">
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-label>Pages</mat-label>
+                <input matInput matNativeControl type="number" matInput formControlName = "pages">
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="actions">
+        <button mat-raised-button (click)="closeDialog()" class="close">Close</button>
+        <button mat-raised-button (click)="submit()" class="submit">Submit</button>
+    </div>
+</div>

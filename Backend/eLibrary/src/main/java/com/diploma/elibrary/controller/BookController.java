@@ -3,15 +3,19 @@ package com.diploma.elibrary.controller;
 import com.diploma.elibrary.model.Book;
 import com.diploma.elibrary.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("library")
+@RequestMapping("api")
 public class BookController {
     private final BookServiceImpl service;
     @Autowired
@@ -31,7 +35,7 @@ public class BookController {
     }
 
     @PutMapping("/book/update/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestParam Book book) {
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
         return ResponseEntity.ok(service.updateBook(id, book));
     }
 
