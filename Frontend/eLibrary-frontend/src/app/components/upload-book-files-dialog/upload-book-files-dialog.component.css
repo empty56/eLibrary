@@ -1,0 +1,27 @@
+.block {
+  width: 40vh;
+  height: 37vh;
+}
+.name {
+  font-size: 35px;
+  padding: 40px;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  text-align: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+.book-title {
+  font-size: 20px;
+  padding: 20px;
+}
+.mat-form-field
+{
+    width: 110%;
+}

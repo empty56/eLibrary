@@ -1,0 +1,24 @@
+<div class="block">
+    <div class="content">
+        <label class="name">Update link</label>
+        <label class="book-title">Book title : {{link.book.title}}</label>
+        <form class="form" [formGroup]="linkForm">
+            <mat-form-field class="input">
+                <mat-label>Pdf key</mat-label>
+                <input matInput matNativeControl type="text" matInput formControlName = "pdf_key">
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-label>Audio key</mat-label>
+                <input matInput matNativeControl type="text" matInput formControlName = "audio_key">
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-label>Photo key</mat-label>
+                <input matInput matNativeControl type="text" matInput formControlName = "thumbnail_key">
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="actions">
+        <button mat-raised-button (click)="closeDialog()" class="close">Close</button>
+        <button mat-raised-button (click)="submit()" class="submit">Update</button>
+    </div>
+</div>

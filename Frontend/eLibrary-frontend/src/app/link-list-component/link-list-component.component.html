@@ -1,0 +1,57 @@
+<div class = "block">
+    <div class = "title">
+      <label>Link list</label>
+    </div>
+  
+    <div class="table">
+  
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+  
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="book_title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by book title"> Book title </th>
+          <td mat-cell *matCellDef="let element" class="text"> {{(element.book.title?.length>trunc)? (element.book.title | slice:0:trunc)+'...':(element.book.title)}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="pdf_key">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by pdf_key" > Pdf key </th>
+          <td mat-cell *matCellDef="let element" class="text"> {{element.pdf_key}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="audio_key">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by audio_key" > Audio key </th>
+          <td mat-cell *matCellDef="let element" class="text"> {{element.audio_key}} </td>
+        </ng-container>
+        <ng-container matColumnDef="photo_key">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by photo_key" > Photo key </th>
+            <td mat-cell *matCellDef="let element" class="text"> {{(element.thumbnail_key?.length>trunc)? (element.thumbnail_key | slice:0:trunc)+'...':(element.thumbnail_key)}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element"> 
+            <div class="action">
+                <button mat-raised-button (click)="updateLink(element)" class="update-button">Update</button> 
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      </table>
+      <mat-paginator [pageSizeOptions]="[8]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+
+    <div class="close">
+        <button mat-raised-button (click)="closeDialog()">Close</button>
+    </div>
+
+</div>

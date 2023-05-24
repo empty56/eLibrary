@@ -49,7 +49,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book createBook(Book book) {
-        return bookRepository.save(book);
+        Book new_book =bookRepository.save(book);
+        linkService.createLink(new_book.getId());
+        return new_book;
     }
 
     @Override

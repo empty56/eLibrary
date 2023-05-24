@@ -17,7 +17,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name="books")
-@JsonIgnoreProperties({"reviews", "accountBooks"})
+@JsonIgnoreProperties({"link", "reviews", "accountBooks"})
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

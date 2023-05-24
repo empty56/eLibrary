@@ -6,6 +6,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 
 import com.amazonaws.util.IOUtils;
+import com.diploma.elibrary.exception.ResourceNotFoundException;
+import com.diploma.elibrary.model.Book;
+import com.diploma.elibrary.model.Link;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -57,6 +60,16 @@ public class S3Service {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public String uploadBook(Long book_id, MultipartFile bookFile, MultipartFile audioFile, MultipartFile photoFile) {
+        String bookKey = "books/" + book_id;
+        String audioKey = "audio/" + book_id;
+        String thumbnailKey = "thumbnail/" + book_id;
+        this.uploadFile(bookKey, bookFile);
+        this.uploadFile(audioKey, audioFile);
+        this.uploadFile(thumbnailKey, photoFile);
+        return "Uploaded successfully";
     }
 
     private File convertMultiPartFileToFile(MultipartFile file) {

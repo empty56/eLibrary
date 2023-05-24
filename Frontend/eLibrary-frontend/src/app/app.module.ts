@@ -21,6 +21,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ToastrModule } from 'ngx-toastr';
 
+
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { AdminMainPageComponent } from './components/admin-main-page/admin-main-page.component';
@@ -30,8 +31,11 @@ import { ManageBooksDialogComponent } from './components/manage-books-dialog/man
 import { AccountStatusUpdateDialogComponent } from './components/account-status-update-dialog/account-status-update-dialog.component';
 import { ManageFeedbackDialogComponent } from './components/manage-feedback-dialog/manage-feedback-dialog.component';
 import { AuthInterceptor } from './helpers/auth.interceptor';
-import { AddBookLinksDialogComponent } from './components/add-book-links-dialog/add-book-links-dialog.component';
 import { UpdateBookDialogComponent } from './components/update-book-dialog/update-book-dialog.component';
+import { UpdateLinkDialogComponent } from './components/update-link-dialog/update-link-dialog.component';
+import { UploadBookFilesDialogComponent } from './components/upload-book-files-dialog/upload-book-files-dialog.component';
+import { LinkListComponentComponent } from './link-list-component/link-list-component.component';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 
 @NgModule({
   declarations: [
@@ -44,8 +48,10 @@ import { UpdateBookDialogComponent } from './components/update-book-dialog/updat
     ManageBooksDialogComponent,
     AccountStatusUpdateDialogComponent,
     ManageFeedbackDialogComponent,
-    AddBookLinksDialogComponent,
-    UpdateBookDialogComponent
+    UpdateBookDialogComponent,
+    UpdateLinkDialogComponent,
+    UploadBookFilesDialogComponent,
+    LinkListComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +70,8 @@ import { UpdateBookDialogComponent } from './components/update-book-dialog/updat
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxMatFileInputModule
   ],
   providers: [CurrentUserService,
     {

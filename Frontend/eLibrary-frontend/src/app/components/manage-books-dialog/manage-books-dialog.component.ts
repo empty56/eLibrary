@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Book } from 'src/app/entities/book';
 import { ApiService } from 'src/app/services/api.service';
 import { UpdateBookDialogComponent } from '../update-book-dialog/update-book-dialog.component';
+import { UploadBookFilesDialogComponent } from '../upload-book-files-dialog/upload-book-files-dialog.component';
 
 @Component({
   selector: 'app-manage-books-dialog',
@@ -72,5 +73,9 @@ export class ManageBooksDialogComponent {
   updateBook(book: Book){
     this.dialogRef.close();
     this.dialog.open(UpdateBookDialogComponent, {data: book});
+  }
+  uploadBookFiles(book: Book){
+    this.dialogRef.close();
+    this.dialog.open(UploadBookFilesDialogComponent, {data: book});
   }
 }

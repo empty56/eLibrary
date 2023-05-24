@@ -15,24 +15,24 @@ public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id")
     private Book book;
-    @Column(name = "audio_link")
-    private String audio_link;
-    @Column(name = "pdf_link")
-    private String pdf_link;
-    @Column(name = "thumbnail_link")
-    private String thumbnail_link;
+    @Column(name = "audio_key")
+    private String audio_key;
+    @Column(name = "pdf_key")
+    private String pdf_key;
+    @Column(name = "thumbnail_key")
+    private String thumbnail_key;
 
     @Override
     public String toString() {
         return "Link{" +
                 "id=" + id +
-                ", audio_link='" + audio_link + '\'' +
-                ", pdf_link='" + pdf_link + '\'' +
-                ", thumbnail_link='" + thumbnail_link + '\'' +
+                ", audio_key='" + audio_key + '\'' +
+                ", pdf_key='" + pdf_key + '\'' +
+                ", thumbnail_key='" + thumbnail_key + '\'' +
                 '}';
     }
 

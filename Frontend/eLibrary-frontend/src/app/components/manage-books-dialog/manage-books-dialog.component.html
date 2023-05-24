@@ -45,11 +45,11 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let element"> 
-            <div class="action">
+              <div class="action">
                 <button mat-raised-button (click)="updateBook(element)" class="update-button">Update</button> 
                 <button mat-fab (click)="deleteBook(element)" class="delete-button"><mat-icon>delete</mat-icon></button> 
-            </div>
-            
+              </div>
+            <button mat-raised-button (click)="uploadBookFiles(element)" class="upload-button">Upload Files</button> 
           </td>
         </ng-container>
 
@@ -57,7 +57,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   
       </table>
-      <mat-paginator [pageSizeOptions]="[8]"
+      <mat-paginator [pageSizeOptions]="[5]"
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">
       </mat-paginator>

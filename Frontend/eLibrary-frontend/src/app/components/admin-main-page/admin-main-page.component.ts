@@ -8,7 +8,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CurrentUserService } from '../../services/current-user.service';
 import { Account } from '../../entities/account';
-import { AddBookLinksDialogComponent } from '../add-book-links-dialog/add-book-links-dialog.component';
+import { UploadBookFilesDialogComponent } from '../upload-book-files-dialog/upload-book-files-dialog.component';
+import { LinkListComponentComponent } from '../../link-list-component/link-list-component.component';
 
 @Component({
   selector: 'app-admin-main-page',
@@ -28,9 +29,10 @@ export class AdminMainPageComponent implements OnInit{
     this.dialog.open(AddBookDialogComponent);
   }
 
-  openAddBookLinksDialog(): void {
-    this.dialog.open(AddBookLinksDialogComponent);
+  openUpdateLinksDialog(): void {
+    this.dialog.open(LinkListComponentComponent);
   }
+
 
   openUpdateDeleteBooksDialog(): void {
     this.dialog.open(ManageBooksDialogComponent);

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Account } from '../entities/account';
 import { Review } from '../entities/review';
 import { Book } from '../entities/book';
+import { Link } from '../entities/link';
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +58,15 @@ private baseUrl = "http://localhost:8080/api";
     return this.http.put(`${this.baseUrl}/book/update/${book.id}`, book);
   }
 
-  createLink(book: Book){
-    return this.http.put(`${this.baseUrl}/book/update/${book.id}`, book);
+  uploadBook(book_id : number, files: FormData){
+    return this.http.post(`${this.baseUrl}/book/upload/${book_id}`, files);
+  }
+
+  getLinks(): Observable<Link[]> {
+    return this.http.get<Link[]>(`${this.baseUrl}/links`);
+  }
+
+  updateLink(link: Link){
+    return this.http.put(`${this.baseUrl}/link/update/${link.id}`, link);
   }
 }

@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface LinkService {
 
-    List<Link> getLinks(Long book_id);
-    Link createLink(Long book_id, MultipartFile bookFile, MultipartFile audioFile, MultipartFile photoFile);
+    List<Link> getAllLinks();
+    Link createLink(Long book_id);
     Link updateLink(Long id, Link linkDetails);
     void deleteLink(Book book);
 }
