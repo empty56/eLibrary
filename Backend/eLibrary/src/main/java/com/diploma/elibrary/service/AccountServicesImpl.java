@@ -3,7 +3,9 @@ package com.diploma.elibrary.service;
 import com.diploma.elibrary.exception.AlreadyExists;
 import com.diploma.elibrary.exception.ResourceNotFoundException;
 import com.diploma.elibrary.model.Account;
+import com.diploma.elibrary.model.AccountBook;
 import com.diploma.elibrary.model.Role;
+import com.diploma.elibrary.repository.AccountBookRepository;
 import com.diploma.elibrary.repository.AccountRepository;
 import com.diploma.elibrary.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ public class AccountServicesImpl implements AccountService {
 
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public AccountServicesImpl(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {

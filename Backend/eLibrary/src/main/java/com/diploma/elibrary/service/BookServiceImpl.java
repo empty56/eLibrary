@@ -4,6 +4,7 @@ package com.diploma.elibrary.service;
 import com.diploma.elibrary.exception.ResourceNotFoundException;
 import com.diploma.elibrary.model.Book;
 import com.diploma.elibrary.model.Review;
+import com.diploma.elibrary.repository.AccountBookRepository;
 import com.diploma.elibrary.repository.BookRepository;
 import com.diploma.elibrary.service.interfaces.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,18 @@ import java.util.*;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final LinkServiceImpl linkService;
-
+    private final AccountBookRepository accountBookRepository;
     private final ReviewServiceImpl reviewService;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, LinkServiceImpl linkService, ReviewServiceImpl reviewService) {
+    public BookServiceImpl(BookRepository bookRepository,
+                           LinkServiceImpl linkService,
+                           ReviewServiceImpl reviewService,
+                           AccountBookRepository accountBookRepository) {
         this.bookRepository = bookRepository;
         this.linkService = linkService;
         this.reviewService = reviewService;
+        this.accountBookRepository = accountBookRepository;
     }
     @Override
     public Book findByTitle(String title) {
@@ -128,6 +133,7 @@ public class BookServiceImpl implements BookService {
     public void deleteBook(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Book doesn't exist with this id: " + id));
+        accountBookRepository.deleteAllByBook(book);
         linkService.deleteLinks(book);
         bookRepository.delete(book);
     }

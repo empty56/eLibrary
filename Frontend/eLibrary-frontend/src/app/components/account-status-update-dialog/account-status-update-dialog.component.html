@@ -36,7 +36,6 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let element"> <button mat-raised-button (click)="toggleUserStatus(element)" [ngClass]="{'blocked-button': element.blocked, 'unblocked-button': !element.blocked}">{{ element.blocked ? 'Unblock' : 'Block' }}</button></td>
-
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

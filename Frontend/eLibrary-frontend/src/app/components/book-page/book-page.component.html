@@ -1,31 +1,48 @@
 <app-header></app-header>
 <div class="page-content">
-    <div class="background"></div>
-    <div>
-        <img src={{book?.link?.thumbnail_key}}>
+  <div class="background"></div>
+  <div class="content-wrapper">
+    <div class="image-wrapper">
+      <img src="{{ book?.link?.thumbnail_key }}" />
+      <div class="row-elements">
+        <mat-toolbar>
+          <button mat-fab (click)="favourite()" class="favorite-button">
+            <mat-icon>favorite_border</mat-icon>
+          </button>
+        </mat-toolbar>
+        <mat-toolbar>
+          <button mat-fab (click)="favourite()" class="bookmark-button">
+            <mat-icon>bookmark_border</mat-icon>
+          </button>
+        </mat-toolbar>
+      </div>
+      <mat-toolbar class="add-button">
+        <button mat-stroked-button (click)="favourite()">
+          Add to my library
+        </button>
+      </mat-toolbar>
     </div>
-    <div class="center">
-        <div class="title">
-            {{book?.title}}
-        </div>
-        <div class="author">
-            {{book?.authors}}
-        </div>
-        <div class="column">
-            <div class="stars" style="--l:{{rating}}"></div>
-            <div class="rating-num">{{rating}}</div>
-        </div>
-        
-        <div class="description">
-            {{book?.description}}
-        </div>
-        <div>
-            {{book?.genre}}
-        </div>
-        <div>
-            {{book?.published}}
-        </div>
+    <div class="text">
+      <div class="title">
+        {{ book?.title }}
+      </div>
+      <div class="author">
+        {{ book?.authors }}
+      </div>
+      <div class="row-elements">
+        <div class="stars" style="--l:{{ rating }}"></div>
+        <div class="rating-num">{{ rating }}</div>
+      </div>
+
+      <div class="description">
+        {{ book?.description }}
+      </div>
+      <div class="genre">
+        Genre: <i>{{ book?.genre }}</i>
+      </div>
+      <div class="published">
+        Published year: <i>{{ book?.published }}</i>
+      </div>
     </div>
+  </div>
 </div>
-
-

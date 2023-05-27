@@ -32,6 +32,8 @@ export class BookPageComponent implements OnInit{
     });
   }
 
-
+  favourite(){
+    
+  }
 
 }

@@ -39,7 +39,7 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { SearchBookListComponent } from './components/search-book-list/search-book-list.component';
 import { BookPageComponent } from './components/book-page/book-page.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
