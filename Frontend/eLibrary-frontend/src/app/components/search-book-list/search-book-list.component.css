@@ -1,0 +1,98 @@
+body {
+  --h: 212deg;
+  --l: 43%;
+  --brandColor: hsl(var(--h), 71%, var(--l));
+  font-family: Montserrat, sans-serif;
+  margin: 0;
+  background-color: whitesmoke;
+}
+
+p {
+  display: inline-block;
+  line-height: 1.6;
+  padding-top: 1%;
+  font-size: 20px;
+}
+
+img {
+  display: block;
+  float: left;
+  max-height: 100px;
+}
+
+li::marker {
+  content: none;
+}
+li {
+  width: 60rem;
+  margin: 2rem auto;
+  padding: 2rem 1rem 1rem;
+  box-shadow: 0.1rem 0.1rem 1.5rem rgba(0, 0, 0, 0.3);
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background-color: white;
+}
+
+.desc {
+  float: left;
+}
+a {
+  padding-left: 20px;
+  margin: 0 0 1rem;
+  color: rgb(70 70 70);
+}
+
+h2 {
+  margin-left: 10%;
+  color: rgb(70 70 70);
+}
+.col {
+  display: flex;
+  flex-direction: column;
+}
+.sub {
+  padding-top: 1%;
+}
+
+@media (min-width: 40em) {
+  li {
+    margin: 3rem auto;
+    padding: 3rem 2rem 2rem;
+  }
+
+  a {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+}
+
+.stars {
+  --s: 40px;
+  width: calc(var(--n, 5) * var(--s));
+  height: calc(var(--s) * 0.9);
+  --v1: transparent, #000 0.5deg 108deg, #0000 109deg;
+  --v2: transparent, #000 0.5deg 36deg, #0000 37deg;
+  mask: calc();
+  -webkit-mask: conic-gradient(
+      from 54deg at calc(var(--s) * 0.68) calc(var(--s) * 0.57),
+      var(--v1)
+    ),
+    conic-gradient(
+      from 90deg at calc(var(--s) * 0.02) calc(var(--s) * 0.35),
+      var(--v2)
+    ),
+    conic-gradient(
+      from 126deg at calc(var(--s) * 0.5) calc(var(--s) * 0.7),
+      var(--v1)
+    ),
+    conic-gradient(from 162deg at calc(var(--s) * 0.5) 0, var(--v2));
+  mask-size: auto;
+  -webkit-mask-size: var(--s) var(--s);
+  -webkit-mask-composite: xor, destination-over;
+  mask-composite: exclude, add;
+  background: linear-gradient(gold 0 0) 0 / calc(var(--l, 0) * var(--s)) 100%
+    no-repeat #ccc;
+}

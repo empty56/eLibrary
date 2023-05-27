@@ -1,0 +1,76 @@
+.page-content {
+  position: relative;
+  z-index: 0;
+  height: calc(100% - 64px);
+  background-image: url("bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(6px);
+  z-index: -1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.center {
+  display: flex;
+  padding-inline: 25%;
+  justify-content: center;
+  flex-direction: column;
+}
+.stars {
+  --s: 40px;
+  width: calc(var(--n, 5) * var(--s));
+  height: calc(var(--s) * 0.9);
+  --v1: transparent, #000 0.5deg 108deg, #0000 109deg;
+  --v2: transparent, #000 0.5deg 36deg, #0000 37deg;
+  mask: calc();
+  -webkit-mask: conic-gradient(
+      from 54deg at calc(var(--s) * 0.68) calc(var(--s) * 0.57),
+      var(--v1)
+    ),
+    conic-gradient(
+      from 90deg at calc(var(--s) * 0.02) calc(var(--s) * 0.35),
+      var(--v2)
+    ),
+    conic-gradient(
+      from 126deg at calc(var(--s) * 0.5) calc(var(--s) * 0.7),
+      var(--v1)
+    ),
+    conic-gradient(from 162deg at calc(var(--s) * 0.5) 0, var(--v2));
+  mask-size: auto;
+  -webkit-mask-size: var(--s) var(--s);
+  -webkit-mask-composite: xor, destination-over;
+  mask-composite: exclude, add;
+  background: linear-gradient(gold 0 0) 0 / calc(var(--l, 0) * var(--s)) 100%
+    no-repeat #ccc;
+}
+.column {
+  display: flex;
+  flex-direction: row;
+}
+.rating-num {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  font-size: 35px;
+}
+.title {
+  font-size: 47px;
+  font-weight: 400;
+}
+.author {
+  padding: 20px 0 10px 3px;
+  font-size: 20px;
+  font-weight: 400;
+}
+.description{
+    padding-top: 20px;
+}

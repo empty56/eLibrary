@@ -23,7 +23,7 @@ public class ReviewServiceImpl implements ReviewService {
         this.reviewRepository = reviewRepository;
     }
     @Override
-    public List<Review> getReviews(Long book_id) {
+    public List<Review> getReviewsByBook(Long book_id) {
         Book book = bookRepository.findById(book_id).orElseThrow(() -> new RuntimeException("No book with id: " + book_id));
         return reviewRepository.findAllByBook(book).orElseThrow(() -> new RuntimeException("No review for this book" ));
     }

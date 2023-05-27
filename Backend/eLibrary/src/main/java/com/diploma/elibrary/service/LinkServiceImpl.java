@@ -34,6 +34,12 @@ public class LinkServiceImpl implements LinkService {
 
 
     @Override
+    public Link getBookLink(Long book_id) {
+        Book book = bookRepository.findById(book_id).orElseThrow(() -> new ResourceNotFoundException("No book this this id"));
+        return linkRepository.findByBook(book).orElseThrow(() -> new ResourceNotFoundException("Link not found"));
+    }
+
+    @Override
     public Link createLink(Long book_id) {
         Book book = bookRepository.findById(book_id).orElseThrow(() -> new ResourceNotFoundException("No book this this id"));
         Optional<Link> checkLink = linkRepository.findByBook(book);
@@ -55,7 +61,7 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public void deleteLink(Book book) {
+    public void deleteLinks(Book book) {
         linkRepository.deleteLinksByBook(book);
     }
 }

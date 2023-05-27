@@ -34,8 +34,12 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
 import { UpdateBookDialogComponent } from './components/update-book-dialog/update-book-dialog.component';
 import { UpdateLinkDialogComponent } from './components/update-link-dialog/update-link-dialog.component';
 import { UploadBookFilesDialogComponent } from './components/upload-book-files-dialog/upload-book-files-dialog.component';
-import { LinkListComponentComponent } from './link-list-component/link-list-component.component';
+import { LinkListComponentComponent } from './components/link-list-dialog/link-list-component.component';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { BookListComponent } from './components/book-list/book-list.component';
+import { SearchBookListComponent } from './components/search-book-list/search-book-list.component';
+import { BookPageComponent } from './components/book-page/book-page.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,11 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
     UpdateBookDialogComponent,
     UpdateLinkDialogComponent,
     UploadBookFilesDialogComponent,
-    LinkListComponentComponent
+    LinkListComponentComponent,
+    BookListComponent,
+    SearchBookListComponent,
+    BookPageComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

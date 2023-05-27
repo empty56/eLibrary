@@ -1,0 +1,27 @@
+header {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  background-color: #363636;
+}
+
+header mat-toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: white;
+  background-color: #363636;
+}
+
+header .leftPart {
+  float: left;
+  width: 40%;
+  padding-left:3%;
+}
+header .leftPart button{
+  height: 64px;
+  border-radius: 0px;
+  background-color: #363636;
+  color: white;
+}

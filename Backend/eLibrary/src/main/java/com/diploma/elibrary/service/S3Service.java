@@ -9,6 +9,8 @@ import com.amazonaws.util.IOUtils;
 import com.diploma.elibrary.exception.ResourceNotFoundException;
 import com.diploma.elibrary.model.Book;
 import com.diploma.elibrary.model.Link;
+import com.diploma.elibrary.repository.BookRepository;
+import com.diploma.elibrary.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -24,12 +26,16 @@ import java.util.Objects;
 public class S3Service {
 
     private final AmazonS3 s3Client;
+    private final LinkRepository linkRepository;
+    private final BookRepository bookRepository;
 
     @Value("${application.bucket.name}")
     private String bucketName;
     @Autowired
-    public S3Service(AmazonS3 s3Client) {
+    public S3Service(AmazonS3 s3Client, LinkRepository linkRepository, BookRepository bookRepository) {
         this.s3Client = s3Client;
+        this.linkRepository = linkRepository;
+        this.bookRepository = bookRepository;
     }
 
 
@@ -63,13 +69,20 @@ public class S3Service {
     }
 
     public String uploadBook(Long book_id, MultipartFile bookFile, MultipartFile audioFile, MultipartFile photoFile) {
+        Book book = bookRepository.findById(book_id).orElseThrow(() -> new ResourceNotFoundException("No book with such id"));
+        Link link = linkRepository.findByBook(book).orElseThrow(() -> new ResourceNotFoundException("No link with such book_id"));
         String bookKey = "books/" + book_id;
         String audioKey = "audio/" + book_id;
         String thumbnailKey = "thumbnail/" + book_id;
         this.uploadFile(bookKey, bookFile);
         this.uploadFile(audioKey, audioFile);
         this.uploadFile(thumbnailKey, photoFile);
+        link.setPdf_key(bookKey);
+        link.setAudio_key(audioKey);
+        link.setThumbnail_key(thumbnailKey);
+        linkRepository.save(link);
         return "Uploaded successfully";
+
     }
 
     private File convertMultiPartFileToFile(MultipartFile file) {

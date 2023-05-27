@@ -3,22 +3,27 @@ package com.diploma.elibrary.service;
 
 import com.diploma.elibrary.exception.ResourceNotFoundException;
 import com.diploma.elibrary.model.Book;
+import com.diploma.elibrary.model.Review;
 import com.diploma.elibrary.repository.BookRepository;
 import com.diploma.elibrary.service.interfaces.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final LinkServiceImpl linkService;
 
+    private final ReviewServiceImpl reviewService;
+
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, LinkServiceImpl linkService) {
+    public BookServiceImpl(BookRepository bookRepository, LinkServiceImpl linkService, ReviewServiceImpl reviewService) {
         this.bookRepository = bookRepository;
         this.linkService = linkService;
+        this.reviewService = reviewService;
     }
     @Override
     public Book findByTitle(String title) {
@@ -42,9 +47,60 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getMostPopularBooks() {
-        bookRepository.findAll();
-        return bookRepository.findAll();
+    public Double getBookRating(Long book_id) {
+        List<Review> reviews = reviewService.getReviewsByBook(book_id);
+        Double avgRating = 0.0;
+        int counter = 0;
+        if(reviews.isEmpty())
+            return 0.0;
+        for(Review review : reviews)
+        {
+            avgRating += Double.valueOf(review.getRating());
+            counter++;
+        }
+        avgRating = avgRating/counter;
+        return avgRating;
+    }
+
+    public Book getBook(Long book_id) {
+        return bookRepository.findById(book_id).orElseThrow(() -> new ResourceNotFoundException("Book not found"));
+    }
+
+    @Override
+    public List<Book> getBestRatedBooks() {
+        Map<Long, Integer> ratings = new HashMap<>();
+        Map<Long, Integer> counters = new HashMap<>();
+        List<Review> reviews = reviewService.getAllReviews();
+        for(Review review : reviews)
+        {
+            if(ratings.containsKey(review.getBook().getId()))
+            {
+                Integer new_rating = ratings.get(review.getBook().getId()) + review.getRating();
+                ratings.replace(review.getBook().getId(), new_rating);
+                counters.replace(review.getBook().getId(), counters.get(review.getBook().getId())+1);
+            }
+            else
+            {
+                ratings.put(review.getBook().getId(), review.getRating());
+                counters.put(review.getBook().getId(), 1);
+            }
+        }
+        Map<Long, Double> avgRatings = new HashMap<>();
+        for(Map.Entry<Long, Integer> entry : ratings.entrySet())
+        {
+            avgRatings.put(entry.getKey(), Double.valueOf(entry.getValue())/Double.valueOf(counters.get(entry.getKey())));
+        }
+        avgRatings = sortByValueDesc(avgRatings);
+        int counter= 0;
+        List<Book> bestRatedBooks = new ArrayList<>();
+        for(Map.Entry<Long, Double> entry : avgRatings.entrySet())
+        {
+            if(counter >= 8)
+                break;
+            bestRatedBooks.add(bookRepository.findById(entry.getKey()).orElseThrow(() -> new ResourceNotFoundException("Wrong book_id")));
+            counter++;
+        }
+        return bestRatedBooks;
     }
 
     @Override
@@ -68,10 +124,21 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public void deleteBook(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Book doesn't exist with this id: " + id));
-        linkService.deleteLink(book);
+        linkService.deleteLinks(book);
         bookRepository.delete(book);
+    }
+
+    private static <K, V extends Comparable<? super V>> Map<K, V> sortByValueDesc(Map<K, V> map) {
+        List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.<K, V>comparingByValue().reversed());
+        Map<K, V> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<K, V> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        return sortedMap;
     }
 }

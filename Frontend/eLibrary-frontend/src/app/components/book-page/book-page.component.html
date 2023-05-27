@@ -1,0 +1,31 @@
+<app-header></app-header>
+<div class="page-content">
+    <div class="background"></div>
+    <div>
+        <img src={{book?.link?.thumbnail_key}}>
+    </div>
+    <div class="center">
+        <div class="title">
+            {{book?.title}}
+        </div>
+        <div class="author">
+            {{book?.authors}}
+        </div>
+        <div class="column">
+            <div class="stars" style="--l:{{rating}}"></div>
+            <div class="rating-num">{{rating}}</div>
+        </div>
+        
+        <div class="description">
+            {{book?.description}}
+        </div>
+        <div>
+            {{book?.genre}}
+        </div>
+        <div>
+            {{book?.published}}
+        </div>
+    </div>
+</div>
+
+

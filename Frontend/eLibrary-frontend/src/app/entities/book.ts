@@ -1,3 +1,5 @@
+import { Link } from "./link";
+
 export class Book {
   id: number;
   title: string;
@@ -7,4 +9,5 @@ export class Book {
   description: string;
   published: number;
   pages: number;
+  link: Link;
 }

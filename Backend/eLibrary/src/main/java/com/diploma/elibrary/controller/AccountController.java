@@ -34,7 +34,7 @@ public class AccountController {
         return ResponseEntity.ok(service.updatePassword(id, password));
     }
 
-    @PutMapping("/account/update/{id}")
+    @PutMapping("/admin/account/update/{id}")
     public ResponseEntity<Account> updateAccount(@PathVariable Long id,@RequestBody Account account) {
         return ResponseEntity.ok(service.updateAccount(id, account));
     }

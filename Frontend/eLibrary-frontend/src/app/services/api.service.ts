@@ -33,7 +33,7 @@ private baseUrl = "http://localhost:8080/api";
   }
 
   getReviews() : Observable<Review[]>{
-    return this.http.get<Review[]>(`${this.baseUrl}/reviews`);
+    return this.http.get<Review[]>(`${this.baseUrl}/noauth/reviews`);
   }
 
   deleteReview(id: number) : Observable<Map<string, boolean>>{
@@ -41,32 +41,50 @@ private baseUrl = "http://localhost:8080/api";
   }
 
   updateAccount(account: Account) {
-    return this.http.put(`${this.baseUrl}/account/update/${account.id}`, account);
+    return this.http.put(`${this.baseUrl}/admin/account/update/${account.id}`, account);
   }
 
   addBook(book: Book) {
-    return this.http.post(`${this.baseUrl}/book/new`, book);
+    return this.http.post(`${this.baseUrl}/admin/book/new`, book);
   }
   getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.baseUrl}/books`);
+    return this.http.get<Book[]>(`${this.baseUrl}/noauth/books`);
   }
+  searchBooks(search: string): Observable<Book[]> {
+    return this.http.get<Book[]>(`${this.baseUrl}/noauth/books/search/${search}`);
+  }
+
   deleteBook(id: number) : Observable<Map<string, boolean>>{
-    return this.http.delete<Map<string, boolean>>(`${this.baseUrl}/book/delete/${id}`);
+    return this.http.delete<Map<string, boolean>>(`${this.baseUrl}/admin/book/delete/${id}`);
   }
 
   updateBook(book: Book){
-    return this.http.put(`${this.baseUrl}/book/update/${book.id}`, book);
+    return this.http.put(`${this.baseUrl}/admin/book/update/${book.id}`, book);
   }
 
   uploadBook(book_id : number, files: FormData){
-    return this.http.post(`${this.baseUrl}/book/upload/${book_id}`, files);
+    return this.http.post(`${this.baseUrl}/admin/book/upload/${book_id}`, files);
   }
 
   getLinks(): Observable<Link[]> {
     return this.http.get<Link[]>(`${this.baseUrl}/links`);
   }
 
+  getBookLink(book_id : number): Observable<Link> {
+    return this.http.get<Link>(`${this.baseUrl}/link/${book_id}`);
+  }
+
   updateLink(link: Link){
-    return this.http.put(`${this.baseUrl}/link/update/${link.id}`, link);
+    return this.http.put(`${this.baseUrl}/admin/link/update/${link.id}`, link);
+  }
+
+  getBestRatedBooks(): Observable<Book[]> {
+    return this.http.get<Book[]>(`${this.baseUrl}/noauth/books/bestRated`);
+  }
+  getBookRating(book_id: number): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/noauth/book/rating/${book_id}`);
+  }
+  getBook(book_id: number): Observable<Book>{
+    return this.http.get<Book>(`${this.baseUrl}/noauth/book/${book_id}`);
   }
 }

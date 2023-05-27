@@ -1,10 +1,24 @@
-<header>
-    <mat-toolbar>
-
-      <button mat-icon-button (click)="logout()">
-        <mat-icon>logout</mat-icon>
-      </button>
-    </mat-toolbar>
-  </header>
-
-<p>main-page works!</p>
+<app-header></app-header>
+<div class="page-content">
+  <div class="background"></div>
+  <div class = "search">
+    <mat-form-field class="search-input">
+        <mat-label>Search book</mat-label>
+        <input matInput placeholder="Enter author/title/genre/publish year" [formControl]="searchFormControl">
+        <button mat-icon-button matSuffix (click)="getSearchedBooks(searchFormControl.value)" >
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-form-field>
+  </div>
+  <div *ngIf="!isSearched" class="list">
+    <app-book-list></app-book-list>
+  </div>
+  <div *ngIf="isSearched" class="list">
+    <app-search-book-list [search]="searchResult"></app-search-book-list>
+  </div>
+  <footer>
+  <p>
+    Copywrited by @me
+  </p>
+  </footer>
+</div>

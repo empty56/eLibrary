@@ -30,11 +30,12 @@ export class LoginComponent {
     this.authService
       .login(this.form.get('email')?.value, this.form.get('password')?.value)
       .subscribe( async (response) => {
-        if(response.role == "USER")
+        const role = response.role;
+        if(role == "USER")
         {
           this.router.navigate(['/library']);
         }
-        else if(response.role == "ADMIN")
+        else if(role == "ADMIN")
         {
           this.router.navigate(['/admin']);
         }

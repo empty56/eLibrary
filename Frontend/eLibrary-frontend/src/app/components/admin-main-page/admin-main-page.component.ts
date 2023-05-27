@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { CurrentUserService } from '../../services/current-user.service';
 import { Account } from '../../entities/account';
 import { UploadBookFilesDialogComponent } from '../upload-book-files-dialog/upload-book-files-dialog.component';
-import { LinkListComponentComponent } from '../../link-list-component/link-list-component.component';
+import { LinkListComponentComponent } from '../link-list-dialog/link-list-component.component';
 
 @Component({
   selector: 'app-admin-main-page',

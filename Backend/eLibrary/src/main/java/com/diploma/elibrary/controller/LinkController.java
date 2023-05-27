@@ -24,7 +24,12 @@ public class LinkController {
         return ResponseEntity.ok(service.getAllLinks());
     }
 
-    @PutMapping("/link/update/{id}")
+    @GetMapping("/link/{book_id}")
+    public ResponseEntity<Link> getLinks(@PathVariable Long book_id) {
+        return ResponseEntity.ok(service.getBookLink(book_id));
+    }
+
+    @PutMapping("/admin/link/update/{id}")
     public ResponseEntity<Link> updateLink(@PathVariable Long id, @RequestBody Link link) {
         return ResponseEntity.ok(service.updateLink(id, link));
     }

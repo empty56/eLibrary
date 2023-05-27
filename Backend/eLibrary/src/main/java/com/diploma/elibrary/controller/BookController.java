@@ -28,28 +28,27 @@ public class BookController {
     }
 
     //get all accounts
-    @GetMapping("/book/search/{search}")
+    @GetMapping("/noauth/books/search/{search}")
     public ResponseEntity<List<Book>> searchBooks(@PathVariable String search) {
         return ResponseEntity.ok(service.searchBooks(search));
     }
 
-    @GetMapping("/books")
+    @GetMapping("/noauth/books")
     public ResponseEntity<List<Book>> getBooks() {
         return ResponseEntity.ok(service.getAllBooks());
     }
 
-    @PutMapping("/book/update/{id}")
+    @PutMapping("/admin/book/update/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
         return ResponseEntity.ok(service.updateBook(id, book));
     }
 
-    @PostMapping("/book/new")
+    @PostMapping("/admin/book/new")
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
         return ResponseEntity.ok(service.createBook(book));
-
     }
 
-    @DeleteMapping("/book/delete/{id}")
+    @DeleteMapping("/admin/book/delete/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteBook(@PathVariable Long id) {
         service.deleteBook(id);
         Map<String, Boolean> response = new HashMap<>();
@@ -57,7 +56,7 @@ public class BookController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/book/upload/{book_id}")
+    @PostMapping("/admin/book/upload/{book_id}")
     public ResponseEntity<?> uploadBook(@PathVariable Long book_id, @RequestParam("files") MultipartFile[] files) {
         if (files.length == 3) {
             MultipartFile book = null, audio = null, photo = null;
@@ -92,5 +91,20 @@ public class BookController {
             String response = "Bad files";
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+    }
+
+    @GetMapping("/noauth/books/bestRated")
+    public ResponseEntity<List<Book>> getBestRatedBooks() {
+        return ResponseEntity.ok(service.getBestRatedBooks());
+    }
+
+    @GetMapping("/noauth/book/rating/{book_id}")
+    public ResponseEntity<Double> getBookRating(@PathVariable Long book_id) {
+        return ResponseEntity.ok(service.getBookRating(book_id));
+    }
+
+    @GetMapping("/noauth/book/{book_id}")
+    public ResponseEntity<Book> getBook(@PathVariable Long book_id) {
+        return ResponseEntity.ok(service.getBook(book_id));
     }
 }

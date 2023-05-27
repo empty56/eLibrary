@@ -1,0 +1,14 @@
+<li *ngFor="let item of ratedBooks">
+    
+    <div class="col">
+        <div class="desc">
+            <img src={{item.book.link?.thumbnail_key}}>
+            <a type="submit" routerLink="./book/{{item.book.id}}" >{{item.book.title}}</a>
+            <h2>by {{item.book.authors}}</h2>
+        </div>
+        <div class="sub">
+            <div class="stars" style="--l:{{item.rating}}"></div>
+            <p>{{item.book.subtitle}}</p>
+        </div>
+    </div>
+</li>

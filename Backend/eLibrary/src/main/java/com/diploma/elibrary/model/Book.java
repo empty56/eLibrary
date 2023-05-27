@@ -36,8 +36,7 @@ public class Book {
     private Integer published;
     @Column(name = "pages")
     private Integer pages;
-    @JsonManagedReference
-    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Link link;
     @JsonManagedReference
     @OneToMany(mappedBy = "book")

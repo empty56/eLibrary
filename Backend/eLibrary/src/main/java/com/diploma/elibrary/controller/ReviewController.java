@@ -20,11 +20,11 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews/{book_id}")
-    public ResponseEntity<List<Review>> getReviews(@PathVariable Long book_id) {
-        return ResponseEntity.ok(service.getReviews(book_id));
+    public ResponseEntity<List<Review>> getReviewsByBook(@PathVariable Long book_id) {
+        return ResponseEntity.ok(service.getReviewsByBook(book_id));
     }
 
-    @GetMapping("/reviews")
+    @GetMapping("noauth/reviews")
     public ResponseEntity<List<Review>> getAllReviews() {
         return ResponseEntity.ok(service.getAllReviews());
     }

@@ -13,7 +13,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     Optional<Book> findBookByTitle(String title);
 
-    @Query(value = "SELECT * FROM books WHERE title ILIKE ?1% OR authors ILIKE ?1% OR genre ILIKE ?1% OR subtitle ILIKE ?1% ", nativeQuery = true)
+    @Query(value = "SELECT * FROM books WHERE title ILIKE %?1% OR authors ILIKE %?1% OR genre ILIKE %?1% OR subtitle ILIKE %?1% ", nativeQuery = true)
     Optional<List<Book>> findBooksByTitleOrAuthorsOrGenreOrSubtitle(String search);
 
     Optional<List<Book>> findBookByPublished(Integer published);

@@ -48,7 +48,6 @@ export class UploadBookFilesDialogComponent {
         formData.append('files', files[0]);
         formData.append('files', files[1]);
         formData.append('files', files[2]);
-        console.log(formData.getAll('files'));
         this.apiService.uploadBook(this.book.id, formData).subscribe(
           (response) => {
             this.toastr.success('Link was updated', 'Successfuly updated');

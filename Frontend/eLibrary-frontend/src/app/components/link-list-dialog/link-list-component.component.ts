@@ -6,7 +6,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
-import { UpdateLinkDialogComponent } from '../components/update-link-dialog/update-link-dialog.component';
+import { UpdateLinkDialogComponent } from '../update-link-dialog/update-link-dialog.component';
 import { Link } from 'src/app/entities/link';
 
 @Component({
