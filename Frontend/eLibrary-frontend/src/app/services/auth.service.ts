@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ApiService } from './api.service';
+import { CurrentUserService } from './current-user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class AuthService {
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this._isLoggedIn$.asObservable();
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private currentUserService: CurrentUserService) {
     const token = localStorage.getItem('token');
     this._isLoggedIn$.next(!!token);
   }
@@ -20,6 +21,7 @@ export class AuthService {
       tap((response: any) => {
         this._isLoggedIn$.next(true);
         localStorage.setItem('token', response.token);
+        this.currentUserService.setCurrentUser();
       })
     );
   }
@@ -28,5 +30,6 @@ export class AuthService {
   {
     this._isLoggedIn$.next(false); 
     localStorage.removeItem('token');
+    this.currentUserService.deleteCurrentUser();
   }
 }

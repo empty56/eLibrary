@@ -3,7 +3,7 @@ import { MainPageComponent } from '../main-page/main-page.component';
 import { Book } from 'src/app/entities/book';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import { ReplaySubject, forkJoin, mergeAll, of, switchMap, tap } from 'rxjs';
+import { ReplaySubject, filter, forkJoin, mergeAll, of, switchMap, tap } from 'rxjs';
 import { AccountBook } from 'src/app/entities/account-book';
 import { Account } from 'src/app/entities/account';
 import { CurrentUserService } from 'src/app/services/current-user.service';
@@ -37,6 +37,7 @@ export class BookPageComponent implements OnInit{
         this.book.link = link;
       });
       this.currentUserService.currentUser$.pipe(
+        filter((currentUser) => !!currentUser),
         switchMap((user) => forkJoin({ user: of(user), accountBook: this.apiService.getAccountBook(user?.id, book?.id)}))
       ).subscribe(({user, accountBook}) => {
         this.accountBook = accountBook;

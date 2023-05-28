@@ -11,19 +11,23 @@ export class CurrentUserService {
      Account  | null | undefined
   >(undefined);
 
-  constructor(private accountService : AccountService){
-  }
+  constructor(private accountService : AccountService){}
 
-  async setCurrentUser() {
+  setCurrentUser() {
     let token = localStorage.getItem('token');
     if (token) {
       const decodedToken  = this.decodeToken(token);
       const email = decodedToken.sub;
-      const account = await this.accountService.getAccount(email);
-      this.currentUser$.next(account);
+      this.accountService.getAccount(email).subscribe((user)=>
+      {
+        this.currentUser$.next(user);
+      });
     } else {
       this.currentUser$.next(null);
     }
+  }
+  deleteCurrentUser(){
+    this.currentUser$.next(null);
   }
   private decodeToken(token: string): JwtToken {
     return jwt_decode<JwtToken>(token);

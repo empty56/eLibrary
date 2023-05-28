@@ -50,11 +50,11 @@ export class ReviewsComponent {
   editReview()
   {
     this.apiService.updateReview(this.currentReview).subscribe( (resposne) => {
-      this.toastr.success('Your review was deleted', 'Successfuly deleted!');
+      this.toastr.success('Your review was updated', 'Successfuly updated!');
     
     },
     (error) => {
-      this.toastr.error(error, 'Error deleting your review');
+      this.toastr.error(error, 'Error updating your review');
     });
   }
   deleteReview()

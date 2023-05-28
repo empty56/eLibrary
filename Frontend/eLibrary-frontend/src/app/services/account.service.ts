@@ -9,7 +9,7 @@ import { Account } from '../entities/account';
 })
 export class AccountService {
 
-  constructor(private apiService: ApiService, private authService: AuthService) {}
+  constructor(private apiService: ApiService) {}
   
   registerAccount(account : Account) {
     return this.apiService.createAccount(account);
@@ -18,7 +18,7 @@ export class AccountService {
     return firstValueFrom(this.apiService.emailExists(email));
   }
   getAccount(username : string) {
-    return firstValueFrom(this.apiService.getAccount(username));
+    return this.apiService.getAccount(username);
   }
 
   getUsers(){

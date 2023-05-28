@@ -8,7 +8,7 @@ export const authGuard = () => {
     const currentUserService = inject(CurrentUserService);
     const router = inject(Router);
     return currentUserService.currentUser$.pipe(
-        filter((currentUser) => currentUser !== undefined),
+        filter((currentUser) => !!currentUser),
         map((currentUser) => {
           if (!currentUser || currentUser.role != 'ADMIN') {
             router.navigateByUrl('/');
