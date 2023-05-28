@@ -1,38 +1,13 @@
-.block {
-  width: 75vh;
-  height: 45vh;
+.review-list {
+  width: 100%;
+  margin: 2% auto;
+  padding: 1rem 1rem 0;
+  box-shadow: 0.1rem 0.1rem 1.5rem rgba(0, 0, 0, 0.3);
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background-color: white;
+  position: relative;
 }
-
-.table {
-  padding: 20px;
-  text-align: center;
-}
-.title {
-  text-align: center;
-  padding: 2%;
-  font-size: 30px;
-}
-.close {
-  display: flex;
-  justify-content: center;
-  padding: 1%;
-}
-.close button {
-  width: 10%;
-  background-color: rgb(107, 124, 130);
-  color: white;
-}
-
-.blocked-button {
-  background-color: green;
-  color: white;
-}
-
-.unblocked-button {
-  background-color: red;
-  color: white;
-}
-
 .stars {
   --s: 40px;
   width: calc(var(--n, 5) * var(--s));
@@ -59,4 +34,27 @@
   mask-composite: exclude, add;
   background: linear-gradient(gold 0 0) 0 / calc(var(--l, 0) * var(--s)) 100%
     no-repeat #ccc;
+}
+.name{
+  font-size: 20px;
+  font-weight: 500;
+  font-style: italic;
+}
+.review{
+  padding-top: 2%;
+  font-size: 18px;
+  font-family: "Tsukimi Rounded", sans-serif;
+  font-weight: 600;
+  line-height: 35px;
+}
+.title{
+  padding: 2% 10px;
+  font-size: 30px;
+  font-weight: 500;
+}
+.review-list button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-120%);
 }

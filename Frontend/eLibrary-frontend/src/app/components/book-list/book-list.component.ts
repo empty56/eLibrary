@@ -1,6 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ReplaySubject } from 'rxjs';
 import { Book } from 'src/app/entities/book';
 import { Link } from 'src/app/entities/link';
 import { ApiService } from 'src/app/services/api.service';
@@ -21,6 +22,13 @@ export class BookListComponent {
 
   ngOnInit() {
     this.loadBooks();
+  }
+
+  destroy: ReplaySubject<any> = new ReplaySubject<any>();
+
+  ngOnDestroy(): void {
+    this.destroy.next(null);
+    this.destroy.complete();
   }
 
   loadBooks() {

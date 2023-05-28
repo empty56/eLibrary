@@ -1,0 +1,23 @@
+<div class="block">
+    <div class="content">
+        <label class="name">Update book</label>
+        <form class="form">
+            <button mat-icon-button *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i" (click)="onClick(i+1)" [matTooltip]="ratingId+1" matTooltipPosition="above">
+                <mat-icon>
+                  {{showIcon(i)}}
+                </mat-icon>
+              </button>
+              <mat-error *ngIf="starCount == null || starCount == 0">
+                Star count is <strong>required</strong> and cannot be zero
+              </mat-error>
+            <mat-form-field class="input">
+                <mat-label>Comment</mat-label>
+                <input matInput matNativeControl type="text" [formControl]="reviewFormControl">
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="actions">
+        <button mat-raised-button (click)="closeDialog()" class="close">Close</button>
+        <button mat-raised-button (click)="submit()" class="submit">Update</button>
+    </div>
+</div>

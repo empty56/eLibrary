@@ -4,13 +4,11 @@ import com.diploma.elibrary.model.Account;
 import com.diploma.elibrary.model.AccountBook;
 import com.diploma.elibrary.model.Book;
 import com.diploma.elibrary.service.AccountBookServiceImpl;
-import com.diploma.elibrary.service.AccountServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,9 +19,9 @@ public class AccountBookController {
     public AccountBookController(AccountBookServiceImpl accountBookService) {
         this.service = accountBookService;
     }
-    @GetMapping("/account-book")
-    public ResponseEntity<AccountBook> getAccountBook(@RequestBody Account account, @RequestBody Book book) {
-        return ResponseEntity.ok(service.getAccountBook(account, book));
+    @GetMapping("/account-book/account/{account_id}/book/{book_id}")
+    public ResponseEntity<AccountBook> getAccountBook(@PathVariable Long account_id, @PathVariable Long book_id) {
+        return ResponseEntity.ok(service.getAccountBook(account_id, book_id));
     }
 
     @PostMapping("/account-book/new")

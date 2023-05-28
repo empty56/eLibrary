@@ -1,8 +1,7 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
+import { ReplaySubject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { CurrentUserService } from 'src/app/services/current-user.service';
 
 @Component({
   selector: 'app-header',
@@ -14,11 +13,17 @@ export class HeaderComponent {
     private authService: AuthService,
     private router: Router
   ) {}
+  
+  destroy: ReplaySubject<any> = new ReplaySubject<any>();
+
+  ngOnDestroy(): void {
+    this.destroy.next(null);
+    this.destroy.complete();
+  }
 
 
   home() : void {
     this.router.navigate(['/']);
-    //window.location.reload();
   }
 
   logout(): void {

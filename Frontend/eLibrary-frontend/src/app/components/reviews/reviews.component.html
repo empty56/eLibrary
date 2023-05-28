@@ -1,0 +1,32 @@
+<div class="content">
+  <div *ngIf="!currentReview">
+        
+  </div>
+  <div *ngIf="currentReview" >
+    <p class="title">Your review: </p>
+    <div class = "review-list">
+      <p class = "name">{{currentReview.account.firstname}} {{currentReview.account.lastname}}</p>
+      <div class="stars" style="--l:{{currentReview.rating}}"></div>
+      <p class="review">{{currentReview.review}} </p>
+      <button mat-icon-button matSuffix [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openUpdateReviewDialog()">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+        <button mat-menu-item (click)="deleteReview()">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+  <p class="title"> Reviews and ratings: </p>
+  <div *ngFor="let item of reviews" class = "review-list">
+    <p class = "name">{{item.account.firstname}} {{item.account.lastname}}</p>
+    <div class="stars" style="--l:{{item.rating}}"></div>
+    <p class="review">{{item.review}} </p>
+  </div>
+</div>

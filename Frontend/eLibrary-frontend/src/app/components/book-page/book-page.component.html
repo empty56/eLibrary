@@ -6,19 +6,19 @@
       <img src="{{ book?.link?.thumbnail_key }}" />
       <div class="row-elements">
         <mat-toolbar>
-          <button mat-fab (click)="favourite()" class="favorite-button">
-            <mat-icon>favorite_border</mat-icon>
+          <button mat-fab (click)="changeFavourite()" class="favorite-button">
+            <mat-icon [ngClass]="{'favorite-button': accountBook?.favourite, 'not-favorite-button': !accountBook?.favourite}">{{accountBook?.favourite? 'favorite' : 'favorite_border'}}</mat-icon>
           </button>
         </mat-toolbar>
         <mat-toolbar>
-          <button mat-fab (click)="favourite()" class="bookmark-button">
-            <mat-icon>bookmark_border</mat-icon>
+          <button mat-fab (click)="changeBookmark()" class="bookmark-button">
+            <mat-icon [ngClass]="{'bookmarked-button': accountBook?.wanted, 'not-bookmarked-button': !accountBook?.wanted}">{{accountBook?.wanted? 'bookmark' : 'bookmark_border'}}</mat-icon>
           </button>
         </mat-toolbar>
       </div>
       <mat-toolbar class="add-button">
-        <button mat-stroked-button (click)="favourite()">
-          Add to my library
+        <button mat-stroked-button (click)="addToLibrary()" [ngClass]="{'add-to-library-button': accountBook?.bought, 'remove-from-library-button': !accountBook?.bought}">
+            {{!accountBook?.bought? 'Add to my library' : 'Remove from my library'}}
         </button>
       </mat-toolbar>
     </div>
@@ -33,16 +33,16 @@
         <div class="stars" style="--l:{{ rating }}"></div>
         <div class="rating-num">{{ rating }}</div>
       </div>
-
-      <div class="description">
-        {{ book?.description }}
-      </div>
       <div class="genre">
         Genre: <i>{{ book?.genre }}</i>
       </div>
       <div class="published">
         Published year: <i>{{ book?.published }}</i>
       </div>
+      <div class="description">
+        {{ book?.description }}
+      </div>
+      <app-reviews *ngIf="accountBook" [currentUser]="accountBook?.account" [book]="book" class = "reviews"></app-reviews>
     </div>
   </div>
 </div>

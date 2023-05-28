@@ -10,17 +10,16 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name="accountsBooks")
+@Table(name="accounts_books")
+@JsonIgnoreProperties({"book", "account"})
 public class AccountBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id")
     private Book book;
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
     private Account account;
     @Column(name = "bought")
@@ -36,4 +35,18 @@ public class AccountBook {
     private boolean already_read;
     @Column(name = "current_page")
     private Integer current_page;
+
+    @Override
+    public String toString() {
+        return "Link{" +
+                "id=" + id +
+                ", book_id='" + book.getId() + '\'' +
+                ", account_id='" + account.getId() + '\'' +
+                ", bought='" + bought + '\'' +
+                ", favourite='" + favourite + '\'' +
+                ", wanted='" + wanted + '\'' +
+                ", already_read='" + already_read + '\'' +
+                ", current_page='" + current_page + '\'' +
+                '}';
+    }
 }

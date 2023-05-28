@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,7 +20,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule} from '@angular/material/table'
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ToastrModule } from 'ngx-toastr';
+
+
 
 
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -40,6 +46,9 @@ import { BookListComponent } from './components/book-list/book-list.component';
 import { SearchBookListComponent } from './components/search-book-list/search-book-list.component';
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ReviewsComponent } from './components/reviews/reviews.component';
+import { AddReviewDialogComponent } from './add-review-dialog/add-review-dialog.component';
+import { UpdateReviewDialogComponent } from './components/update-review-dialog/update-review-dialog.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +68,10 @@ import { HeaderComponent } from './components/header/header.component';
     BookListComponent,
     SearchBookListComponent,
     BookPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    ReviewsComponent,
+    AddReviewDialogComponent,
+    UpdateReviewDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +90,9 @@ import { HeaderComponent } from './components/header/header.component';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatMenuModule,
+    MatSnackBarModule,
+    MatTooltipModule,
     ToastrModule.forRoot(),
     NgxMatFileInputModule
   ],

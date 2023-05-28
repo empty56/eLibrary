@@ -52,6 +52,7 @@ public class AccountServicesImpl implements AccountService {
 
     @Override
     public Account createAccount(Account account) {
+
         account.setRole(Role.USER);
         account.setBlocked(false);
         if(emailExists(account.getEmail())) {

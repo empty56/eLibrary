@@ -5,6 +5,7 @@ import { Account } from '../entities/account';
 import { Review } from '../entities/review';
 import { Book } from '../entities/book';
 import { Link } from '../entities/link';
+import { AccountBook } from '../entities/account-book';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,14 @@ private baseUrl = "http://localhost:8080/api";
     return this.http.get<Review[]>(`${this.baseUrl}/noauth/reviews`);
   }
 
+  getReviewsByBook(book_id: number) : Observable<Review[]>{
+    return this.http.get<Review[]>(`${this.baseUrl}/noauth/reviews/${book_id}`);
+  }
+
+  updateReview(review: Review) {
+    return this.http.put(`${this.baseUrl}/review/update/${review.id}`, review);
+  }
+
   deleteReview(id: number) : Observable<Map<string, boolean>>{
     return this.http.delete<Map<string, boolean>>(`${this.baseUrl}/review/delete/${id}`);
   }
@@ -54,7 +63,7 @@ private baseUrl = "http://localhost:8080/api";
     return this.http.get<Book[]>(`${this.baseUrl}/noauth/books/search/${search}`);
   }
 
-  deleteBook(id: number) : Observable<Map<string, boolean>>{
+  deleteBook(id: number): Observable<Map<string, boolean>>{
     return this.http.delete<Map<string, boolean>>(`${this.baseUrl}/admin/book/delete/${id}`);
   }
 
@@ -62,7 +71,7 @@ private baseUrl = "http://localhost:8080/api";
     return this.http.put(`${this.baseUrl}/admin/book/update/${book.id}`, book);
   }
 
-  uploadBook(book_id : number, files: FormData){
+  uploadBook(book_id: number, files: FormData){
     return this.http.post(`${this.baseUrl}/admin/book/upload/${book_id}`, files);
   }
 
@@ -70,7 +79,7 @@ private baseUrl = "http://localhost:8080/api";
     return this.http.get<Link[]>(`${this.baseUrl}/links`);
   }
 
-  getBookLink(book_id : number): Observable<Link> {
+  getBookLink(book_id: number): Observable<Link> {
     return this.http.get<Link>(`${this.baseUrl}/link/${book_id}`);
   }
 
@@ -86,5 +95,13 @@ private baseUrl = "http://localhost:8080/api";
   }
   getBook(book_id: number): Observable<Book>{
     return this.http.get<Book>(`${this.baseUrl}/noauth/book/${book_id}`);
+  }
+  
+  getAccountBook(account_id: number, book_id: number): Observable<AccountBook>{
+    return this.http.get<AccountBook>(`${this.baseUrl}/account-book/account/${account_id}/book/${book_id}`);
+  }
+
+  updateAccountBook(account_book_id: number, accountBook: AccountBook): Observable<AccountBook>{
+    return this.http.put<AccountBook>(`${this.baseUrl}/account-book/update/${account_book_id}`, accountBook);
   }
 }

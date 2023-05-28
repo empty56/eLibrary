@@ -19,12 +19,12 @@ public class ReviewController {
         this.service = reviewService;
     }
 
-    @GetMapping("/reviews/{book_id}")
+    @GetMapping("/noauth/reviews/{book_id}")
     public ResponseEntity<List<Review>> getReviewsByBook(@PathVariable Long book_id) {
         return ResponseEntity.ok(service.getReviewsByBook(book_id));
     }
 
-    @GetMapping("noauth/reviews")
+    @GetMapping("/noauth/reviews")
     public ResponseEntity<List<Review>> getAllReviews() {
         return ResponseEntity.ok(service.getAllReviews());
     }

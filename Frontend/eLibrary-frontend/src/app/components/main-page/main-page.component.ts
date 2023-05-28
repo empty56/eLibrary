@@ -10,6 +10,7 @@ import { CurrentUserService } from '../../services/current-user.service';
 import { Book } from 'src/app/entities/book';
 import { ApiService } from 'src/app/services/api.service';
 import { FormControl } from '@angular/forms';
+import { ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -24,12 +25,15 @@ export class MainPageComponent implements OnInit {
   }
 
   constructor(
-    private authService: AuthService,
-    private apiService: ApiService,
-    private router: Router,
-    private currentUserService: CurrentUserService,
-    private cdr: ChangeDetectorRef
+    private currentUserService: CurrentUserService
   ) {}
+
+  destroy: ReplaySubject<any> = new ReplaySubject<any>();
+
+  ngOnDestroy(): void {
+    this.destroy.next(null);
+    this.destroy.complete();
+  }
 
 
   private getCurrentAccount() {

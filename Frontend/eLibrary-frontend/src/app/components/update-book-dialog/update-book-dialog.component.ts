@@ -32,12 +32,13 @@ export class UpdateBookDialogComponent {
     if(this.bookForm.valid)
     {
       const book = {...this.bookForm.value, id: this.book.id} as Book;
-      this.apiService.updateBook(book).subscribe(
-        () => {
-        this.toastr.success('Book was updated', 'Successfuly updated');
-        this.dialogRef.close();
-      }
-      );
+      this.apiService.updateBook(book).subscribe((response) => {
+          this.toastr.success('Book was updated', 'Successfuly updated!');
+          this.dialogRef.close();
+        },
+        (error) => {
+          this.toastr.error(error, 'Error updating book');
+      });
     }
   }
 }
