@@ -1,23 +1,25 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { Account } from 'src/app/entities/account';
+import { Book } from 'src/app/entities/book';
 import { Review } from 'src/app/entities/review';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-update-review-dialog',
-  templateUrl: './update-review-dialog.component.html',
-  styleUrls: ['./update-review-dialog.component.css']
+  selector: 'app-add-review-dialog',
+  templateUrl: './add-review-dialog.component.html',
+  styleUrls: ['./add-review-dialog.component.css']
 })
-export class UpdateReviewDialogComponent {
-
-  rating: number = this.review.rating;
+export class AddReviewDialogComponent {
+  rating: number = this.data.rating;
   starCount: number = 5;
   ratingArr = [];
+  errorState = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public review: Review, 
-  private dialogRef: MatDialogRef<UpdateReviewDialogComponent>, 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {rating: number, currentUser: Account, book: Book}, 
+  private dialogRef: MatDialogRef<AddReviewDialogComponent>, 
   private apiService: ApiService, 
   private toastr: ToastrService){}
   
@@ -27,7 +29,7 @@ export class UpdateReviewDialogComponent {
     }
   }
 
-  reviewFormControl = new FormControl(this.review.review);
+  reviewFormControl = new FormControl('');
 
   closeDialog(): void {
     this.dialogRef.close();
@@ -46,18 +48,19 @@ export class UpdateReviewDialogComponent {
     }
   }
 
-  onRatingChanged(rating){
+  onRatingChanged(rating: number){
     this.rating = rating;
   }
 
   submit() {
-    if(this.reviewFormControl.valid)
+    console.log(this.rating);
+    if(this.reviewFormControl.valid && this.rating != 0)
     {
-      const updatedReview = new Review();
-      updatedReview.id = this.review.id;
-      updatedReview.rating = this.rating;
-      updatedReview.review = this.reviewFormControl.value;
-      this.apiService.updateReview(updatedReview).subscribe( (response) => {
+      const newReview = new Review();
+      newReview.rating = this.rating;
+      newReview.review = this.reviewFormControl.value;
+  
+      this.apiService.addReview(this.data.currentUser.id,this.data.book.id, newReview).subscribe( (response) => {
         this.toastr.success('Your review was updated', 'Successfuly updated!');
         window.location.reload();
         this.dialogRef.close();
@@ -65,6 +68,10 @@ export class UpdateReviewDialogComponent {
       (error) => {
         this.toastr.error(error, 'Error updating your review');
       });
+      this.errorState = false;
+    }
+    else{
+      this.errorState = true;
     }
   }
 }

@@ -1,13 +1,13 @@
 <div class="block">
     <div class="content">
-        <label class="name">Update review</label>
+        <label class="name">Add review</label>
         <form class="form">
             <button mat-icon-button *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i" (click)="onClick(i+1)" [matTooltip]="ratingId+1" matTooltipPosition="above" class="stars">
                 <mat-icon>
                     {{showIcon(i)}}
                 </mat-icon>
             </button>
-            <mat-error *ngIf="starCount == null || starCount == 0">
+            <mat-error *ngIf="errorState">
                 Star count is <strong>required</strong> and cannot be zero
             </mat-error>
             <mat-form-field class="input">
@@ -18,6 +18,6 @@
     </div>
     <div class="actions">
         <button mat-raised-button (click)="closeDialog()" class="close">Close</button>
-        <button mat-raised-button (click)="submit()" class="submit">Update</button>
+        <button mat-raised-button (click)="submit()" class="submit">Add</button>
     </div>
 </div>

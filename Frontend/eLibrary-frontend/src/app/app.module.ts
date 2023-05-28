@@ -47,7 +47,7 @@ import { SearchBookListComponent } from './components/search-book-list/search-bo
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
-import { AddReviewDialogComponent } from './add-review-dialog/add-review-dialog.component';
+import { AddReviewDialogComponent } from './components/add-review-dialog/add-review-dialog.component';
 import { UpdateReviewDialogComponent } from './components/update-review-dialog/update-review-dialog.component';
 
 @NgModule({

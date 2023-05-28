@@ -4,6 +4,7 @@ import com.diploma.elibrary.model.Review;
 import com.diploma.elibrary.service.ReviewServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -34,9 +35,9 @@ public class ReviewController {
         return ResponseEntity.ok(service.updateReview(id, review));
     }
 
-    @PostMapping("/review/new")
-    public ResponseEntity<Review> createReview(@RequestBody Review review) {
-        return ResponseEntity.ok(service.createReview(review));
+    @PostMapping("/review/new/account/{account_id}/book/{book_id}")
+    public ResponseEntity<Review> createReview(@PathVariable Long account_id, @PathVariable Long book_id, @RequestBody Review review) {
+        return ResponseEntity.ok(service.createReview(account_id, book_id, review));
     }
 
     @DeleteMapping("/review/delete/{id}")

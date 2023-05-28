@@ -1,5 +1,16 @@
 <div class="content">
   <div *ngIf="!currentReview">
+    <p class="title">Write your review: </p>
+    <button mat-icon-button *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i" (click)="onStarClick(i+1)" [matTooltip]="ratingId+1" matTooltipPosition="above">
+      <mat-icon>
+          {{showIcon(i)}}
+      </mat-icon>
+    </button>    
+    <div>
+      <button mat-raised-button (click)="openAddReviewDialog()" class="add-review-button">
+        Write review
+      </button>
+    </div>
     
   </div>
   <div *ngIf="currentReview" >

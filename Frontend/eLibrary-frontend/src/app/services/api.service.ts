@@ -41,6 +41,10 @@ private baseUrl = "http://localhost:8080/api";
     return this.http.get<Review[]>(`${this.baseUrl}/noauth/reviews/${book_id}`);
   }
 
+  addReview(account_id:number, book_id:number, review: Review) {
+    return this.http.post(`${this.baseUrl}/review/new/account/${account_id}/book/${book_id}`, review);
+  }
+
   updateReview(review: Review) {
     return this.http.put(`${this.baseUrl}/review/update/${review.id}`, review);
   }
