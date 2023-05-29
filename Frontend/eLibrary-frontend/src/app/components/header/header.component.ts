@@ -25,6 +25,9 @@ export class HeaderComponent {
   home() : void {
     this.router.navigate(['/']);
   }
+  myLibrary() : void {
+    this.router.navigate(['/library/myLibrary']);
+  }
 
   logout(): void {
     this.authService.logout();

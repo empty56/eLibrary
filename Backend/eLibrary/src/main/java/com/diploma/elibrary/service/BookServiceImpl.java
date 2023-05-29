@@ -2,9 +2,12 @@ package com.diploma.elibrary.service;
 
 
 import com.diploma.elibrary.exception.ResourceNotFoundException;
+import com.diploma.elibrary.model.Account;
+import com.diploma.elibrary.model.AccountBook;
 import com.diploma.elibrary.model.Book;
 import com.diploma.elibrary.model.Review;
 import com.diploma.elibrary.repository.AccountBookRepository;
+import com.diploma.elibrary.repository.AccountRepository;
 import com.diploma.elibrary.repository.BookRepository;
 import com.diploma.elibrary.service.interfaces.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import java.util.*;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final LinkServiceImpl linkService;
+    private final AccountRepository accountRepository;
     private final AccountBookRepository accountBookRepository;
     private final ReviewServiceImpl reviewService;
 
@@ -24,11 +28,13 @@ public class BookServiceImpl implements BookService {
     public BookServiceImpl(BookRepository bookRepository,
                            LinkServiceImpl linkService,
                            ReviewServiceImpl reviewService,
-                           AccountBookRepository accountBookRepository) {
+                           AccountBookRepository accountBookRepository,
+                           AccountRepository accountRepository) {
         this.bookRepository = bookRepository;
         this.linkService = linkService;
         this.reviewService = reviewService;
         this.accountBookRepository = accountBookRepository;
+        this.accountRepository = accountRepository;
     }
     @Override
     public Book findByTitle(String title) {
@@ -136,6 +142,19 @@ public class BookServiceImpl implements BookService {
         accountBookRepository.deleteAllByBook(book);
         linkService.deleteLinks(book);
         bookRepository.delete(book);
+    }
+
+    @Override
+    public List<Book> getAllAccountBooks(Long account_id) {
+        Account account = accountRepository.findById(account_id).orElseThrow(()-> new ResourceNotFoundException("No account with this id"));
+        List<AccountBook> accountBooks = accountBookRepository.findAccountBooksByAccount(account).orElseThrow(()-> new RuntimeException("AccountBooks not found"));
+        List<Book> books = new ArrayList<>();
+        for(AccountBook accountBook: accountBooks)
+        {
+            Book book = accountBook.getBook();
+            books.add(book);
+        }
+        return books;
     }
 
     private static <K, V extends Comparable<? super V>> Map<K, V> sortByValueDesc(Map<K, V> map) {

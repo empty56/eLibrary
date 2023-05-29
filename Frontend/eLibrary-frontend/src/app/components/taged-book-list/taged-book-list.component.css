@@ -1,0 +1,89 @@
+.title {
+  padding: 2% 0;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+body {
+  --h: 212deg;
+  --l: 43%;
+  --brandColor: hsl(var(--h), 71%, var(--l));
+  font-family: Montserrat, sans-serif;
+  margin: 0;
+  background-color: whitesmoke;
+}
+
+p {
+  display: inline-block;
+  line-height: 1.6;
+  padding-top: 1%;
+  font-size: 20px;
+}
+
+img {
+  display: block;
+  float: left;
+  max-height: 100px;
+}
+
+li::marker {
+  content: none;
+}
+li {
+  width: 60rem;
+  padding: 2rem 1rem 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0.1rem 0.1rem 1.5rem rgba(0, 0, 0, 0.3);
+  border-radius: 0.25rem;
+  background-color: white;
+}
+
+.desc {
+  float: left;
+}
+a {
+  padding-left: 20px;
+  margin: 0 0 1rem;
+  color: rgb(70 70 70);
+}
+
+h2 {
+  margin-left: 10%;
+  color: rgb(70 70 70);
+}
+.col {
+  display: flex;
+  flex-direction: column;
+}
+.sub {
+  padding-top: 1%;
+}
+
+@media (min-width: 40em) {
+  li {
+    padding: 3rem 2rem 2rem;
+  }
+
+  a {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+}
+.audio {
+  width: 120%;
+  height: 80%;
+}
+
+.row-elements {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px !important;
+}
+.row-elements a {
+  margin-top: 1.9%;
+  font-size: 14px;
+}

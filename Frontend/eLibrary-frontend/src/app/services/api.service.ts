@@ -94,9 +94,11 @@ private baseUrl = "http://localhost:8080/api";
   getBestRatedBooks(): Observable<Book[]> {
     return this.http.get<Book[]>(`${this.baseUrl}/noauth/books/bestRated`);
   }
+
   getBookRating(book_id: number): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/noauth/book/rating/${book_id}`);
   }
+
   getBook(book_id: number): Observable<Book>{
     return this.http.get<Book>(`${this.baseUrl}/noauth/book/${book_id}`);
   }
@@ -105,7 +107,28 @@ private baseUrl = "http://localhost:8080/api";
     return this.http.get<AccountBook>(`${this.baseUrl}/account-book/account/${account_id}/book/${book_id}`);
   }
 
+  getBooksByAccount(account_id: number): Observable<Book[]>{
+    return this.http.get<Book[]>(`${this.baseUrl}/books/account/${account_id}`);
+  }
+
   updateAccountBook(account_book_id: number, accountBook: AccountBook): Observable<AccountBook>{
     return this.http.put<AccountBook>(`${this.baseUrl}/account-book/update/${account_book_id}`, accountBook);
   }
+
+  getAccountBooksByAccount(account_id: number): Observable<AccountBook[]>{
+    return this.http.get<AccountBook[]>(`${this.baseUrl}/account-book/account/${account_id}`);
+  }
+  
+  downloadAudioFile(book_id: number){
+    return this.http.get(`${this.baseUrl}/download/audio/book/${book_id}`);
+  }
+
+  downloadPdfFile(book_id: number){
+    return this.http.get(`${this.baseUrl}/download/pdf/book/${book_id}`);
+  }
+
+  downloadPhotoFile(book_id: number){
+    return this.http.get(`${this.baseUrl}/download/photo/book/${book_id}`);
+  }
+
 }

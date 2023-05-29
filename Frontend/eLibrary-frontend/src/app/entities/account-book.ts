@@ -9,6 +9,6 @@ export class AccountBook {
     favourite: boolean;
     wanted: boolean;
     reading: boolean;
-    alreadyRead: boolean;
+    already_read: boolean;
     currentPage: number;
 }

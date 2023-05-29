@@ -1,9 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MainPageComponent } from '../main-page/main-page.component';
 import { Book } from 'src/app/entities/book';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import { ReplaySubject, filter, forkJoin, mergeAll, of, switchMap, tap } from 'rxjs';
+import { ReplaySubject, filter, forkJoin, of, switchMap } from 'rxjs';
 import { AccountBook } from 'src/app/entities/account-book';
 import { Account } from 'src/app/entities/account';
 import { CurrentUserService } from 'src/app/services/current-user.service';

@@ -5,13 +5,11 @@ import com.diploma.elibrary.service.BookServiceImpl;
 import com.diploma.elibrary.service.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,5 +104,9 @@ public class BookController {
     @GetMapping("/noauth/book/{book_id}")
     public ResponseEntity<Book> getBook(@PathVariable Long book_id) {
         return ResponseEntity.ok(service.getBook(book_id));
+    }
+    @GetMapping("/books/account/{account_id}")
+    public ResponseEntity<List<Book>> getBookByAccount(@PathVariable Long account_id) {
+        return ResponseEntity.ok(service.getAllAccountBooks(account_id));
     }
 }

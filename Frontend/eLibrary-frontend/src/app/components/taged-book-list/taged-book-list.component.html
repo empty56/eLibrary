@@ -1,0 +1,33 @@
+<div class="row-elements">
+    <p class="title">{{tag}}({{books.length}})</p> 
+    <button mat-raised-button (click)="showBooks()">Show</button>
+    <button mat-raised-button (click)="hideBooks()">Hide</button>
+</div>
+<div *ngIf="showBooksState">
+    <li *ngFor="let item of books">
+        <div class="col">
+            <div class="desc">
+                <img src={{item.link?.thumbnail_key}}>
+                <a type="submit" routerLink="../book/{{item.id}}" >{{item.title}}</a>
+                <h2>by {{item.authors}}</h2>
+            </div>
+            <div class="sub">
+                <p>{{item.subtitle}}</p>
+            </div>
+            <div *ngIf="tag == 'Books in your library'">
+                <app-audio-player class="audio" [audio_link]="item.link?.audio_key"></app-audio-player>
+                <div class="row-elements">
+                    <button *ngIf="item.link?.pdf_key" mat-raised-button (click)="onReadBook(item.link?.pdf_key, item.id)">Read book</button>
+                    <a mat-raised-button [href]="item.link?.pdf_key" download="book" > Download book </a>
+                </div>
+            </div>
+            <div *ngIf="tag == 'Books you are reading'" class="row-elements"> 
+                <button mat-raised-button (click)="notReadingAnymore(item.id)">Don't want to read anymore</button>
+                <button mat-raised-button (click)="finishReading(item.id)">Finished reading</button>
+            </div>
+            <div *ngIf="tag == 'Books you are done with'" class="row-elements"> 
+                <button mat-raised-button (click)="notFinishedReading(item.id)">Not finished yet</button>
+            </div>
+        </div>
+    </li>
+</div>

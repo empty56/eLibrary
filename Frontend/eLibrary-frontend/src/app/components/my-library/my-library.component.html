@@ -1,0 +1,14 @@
+<app-header></app-header>
+<div class="page-content">
+    <div class="background"></div>
+    <div class="content-wrapper">
+        <app-taged-book-list [books]="boughtBooks" [tag]="'Books in your library'"></app-taged-book-list>
+        <app-taged-book-list [books]="favouriteBooks" [tag]="'Your favorite books'"></app-taged-book-list>
+        <app-taged-book-list [books]="wantedBooks" [tag]="'Books you want to read'"></app-taged-book-list>
+        <app-taged-book-list [books]="readingBooks" [tag]="'Books you are reading'"></app-taged-book-list>
+        <app-taged-book-list [books]="readBooks" [tag]="'Books you are done with'"></app-taged-book-list>
+    </div> 
+    <footer>
+        <p> Copywrited by @me</p>
+    </footer>
+</div>

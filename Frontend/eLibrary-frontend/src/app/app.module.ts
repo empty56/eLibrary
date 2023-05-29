@@ -24,9 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ToastrModule } from 'ngx-toastr';
-
-
-
+import{ PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
@@ -49,6 +47,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { AddReviewDialogComponent } from './components/add-review-dialog/add-review-dialog.component';
 import { UpdateReviewDialogComponent } from './components/update-review-dialog/update-review-dialog.component';
+import { MyLibraryComponent } from './components/my-library/my-library.component';
+import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
+import { BookViewerComponent } from './components/book-viewer/book-viewer.component';
+import { TagedBookListComponent } from './components/taged-book-list/taged-book-list.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,11 @@ import { UpdateReviewDialogComponent } from './components/update-review-dialog/u
     HeaderComponent,
     ReviewsComponent,
     AddReviewDialogComponent,
-    UpdateReviewDialogComponent
+    UpdateReviewDialogComponent,
+    MyLibraryComponent,
+    AudioPlayerComponent,
+    BookViewerComponent,
+    TagedBookListComponent
   ],
   imports: [
     BrowserModule,
@@ -94,6 +100,7 @@ import { UpdateReviewDialogComponent } from './components/update-review-dialog/u
     MatSnackBarModule,
     MatTooltipModule,
     ToastrModule.forRoot(),
+    PdfViewerModule,
     NgxMatFileInputModule
   ],
   providers: [CurrentUserService,

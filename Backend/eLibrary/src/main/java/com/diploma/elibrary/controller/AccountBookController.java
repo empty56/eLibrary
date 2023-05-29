@@ -2,6 +2,7 @@ package com.diploma.elibrary.controller;
 
 import com.diploma.elibrary.model.Account;
 import com.diploma.elibrary.model.AccountBook;
+import com.diploma.elibrary.model.AccountBookDTO;
 import com.diploma.elibrary.model.Book;
 import com.diploma.elibrary.service.AccountBookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,7 +25,10 @@ public class AccountBookController {
     public ResponseEntity<AccountBook> getAccountBook(@PathVariable Long account_id, @PathVariable Long book_id) {
         return ResponseEntity.ok(service.getAccountBook(account_id, book_id));
     }
-
+    @GetMapping("/account-book/account/{account_id}")
+    public ResponseEntity<List<AccountBookDTO>> getAccountBook(@PathVariable Long account_id) {
+        return ResponseEntity.ok(service.getAccountBookByAccount(account_id));
+    }
     @PostMapping("/account-book/new")
     public ResponseEntity<AccountBook> createAccountBook(@RequestBody Account account, @RequestBody Book book) {
         return ResponseEntity.ok(service.createAccountBook(account, book));
