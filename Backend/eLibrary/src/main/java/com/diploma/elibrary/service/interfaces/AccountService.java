@@ -12,4 +12,5 @@ public interface AccountService {
     Account createAccount(Account account);
     List<Account> getUsers();
 
+    Account updateAccountFullName(Long id, Account accountDetails);
 }

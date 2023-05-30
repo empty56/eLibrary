@@ -8,6 +8,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { UpdateReviewDialogComponent } from '../update-review-dialog/update-review-dialog.component';
 import { ReplaySubject } from 'rxjs';
 import { AddReviewDialogComponent } from 'src/app/components/add-review-dialog/add-review-dialog.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { CurrentUserService } from 'src/app/services/current-user.service';
 
 
 @Component({
@@ -16,26 +18,39 @@ import { AddReviewDialogComponent } from 'src/app/components/add-review-dialog/a
   styleUrls: ['./reviews.component.css']
 })
 export class ReviewsComponent {
-  @Input() currentUser: Account;
+  
   @Input() book: Book;
 
+constructor(private dialog: MatDialog, 
+    private apiService: ApiService, 
+    private toastr: ToastrService,
+    private authService: AuthService,
+    private currentUserService: CurrentUserService){}
+
+  currentUser: Account;
+  isLoggedIn: boolean;
   reviews: Review[];
   currentReview: Review;
-  constructor(private dialog: MatDialog, private apiService: ApiService, private toastr: ToastrService){}
-  
   rating: number = 0;
   starCount: number = 5;
   ratingArr = [];
-
+  destroy: ReplaySubject<any> = new ReplaySubject<any>();
   ngOnInit()
   {
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
-    if(this.currentUser)
-    {
+    this.authService.isLoggedIn$.subscribe((data)=>{
+      this.isLoggedIn = data;
+      if(this.isLoggedIn)
+      {
+        this.currentUserService.currentUser$.subscribe((data)=>
+        {
+          this.currentUser = data;
+        })
+      }
       this.loadReviews(this.currentUser, this.book);
-    }
+    })
   }
 
   onStarClick(rating: number) {
@@ -50,7 +65,7 @@ export class ReviewsComponent {
     }
   }
 
-  destroy: ReplaySubject<any> = new ReplaySubject<any>();
+  
 
   ngOnDestroy(): void {
     this.destroy.next(null);
@@ -59,8 +74,14 @@ export class ReviewsComponent {
 
   loadReviews(currentUser: Account, book: Book){
     this.apiService.getReviewsByBook(book.id).subscribe((reviews)=>{
-      this.reviews = reviews.filter(r =>  r.account.id !== currentUser.id);
-      this.currentReview = reviews.find(r => r.account.id === currentUser.id);
+      if(this.isLoggedIn && reviews) {
+        this.reviews = reviews.filter(r =>  r.account.id !== currentUser.id);
+        this.currentReview = reviews.find(r => r.account.id === currentUser.id);
+      }
+      else {
+        this.reviews = reviews;
+        this.currentReview == null;
+      }
     })
   }
 

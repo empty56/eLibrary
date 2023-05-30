@@ -24,7 +24,7 @@ public class LinkController {
         return ResponseEntity.ok(service.getAllLinks());
     }
 
-    @GetMapping("/link/{book_id}")
+    @GetMapping("/noauth/link/{book_id}")
     public ResponseEntity<Link> getLinks(@PathVariable Long book_id) {
         return ResponseEntity.ok(service.getBookLink(book_id));
     }

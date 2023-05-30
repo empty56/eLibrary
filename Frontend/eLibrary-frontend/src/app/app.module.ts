@@ -51,6 +51,7 @@ import { MyLibraryComponent } from './components/my-library/my-library.component
 import { AudioPlayerComponent } from './components/audio-player/audio-player.component';
 import { BookViewerComponent } from './components/book-viewer/book-viewer.component';
 import { TagedBookListComponent } from './components/taged-book-list/taged-book-list.component';
+import { SettingsDialogComponent } from './components/settings-dialog/settings-dialog.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { TagedBookListComponent } from './components/taged-book-list/taged-book-
     MyLibraryComponent,
     AudioPlayerComponent,
     BookViewerComponent,
-    TagedBookListComponent
+    TagedBookListComponent,
+    SettingsDialogComponent
   ],
   imports: [
     BrowserModule,

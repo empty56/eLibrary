@@ -42,7 +42,7 @@
       <div class="description">
         {{ book?.description }}
       </div>
-      <app-reviews *ngIf="accountBook" [currentUser]="accountBook?.account" [book]="book" class = "reviews"></app-reviews>
+      <app-reviews *ngIf="book" [book]="book" class = "reviews"></app-reviews>
     </div>
   </div>
 </div>

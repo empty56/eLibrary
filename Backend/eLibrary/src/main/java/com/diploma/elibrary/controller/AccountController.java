@@ -39,6 +39,11 @@ public class AccountController {
         return ResponseEntity.ok(service.updateAccount(id, account));
     }
 
+    @PutMapping("/account/update/{id}")
+    public ResponseEntity<Account> updateAccountFullName(@PathVariable Long id,@RequestBody Account account) {
+        return ResponseEntity.ok(service.updateAccountFullName(id, account));
+    }
+
     @GetMapping("/users")
     public ResponseEntity<List<Account>> getUsers() {
         return ResponseEntity.ok(service.getUsers());

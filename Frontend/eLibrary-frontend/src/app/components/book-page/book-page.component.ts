@@ -1,12 +1,13 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Book } from 'src/app/entities/book';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { ReplaySubject, filter, forkJoin, of, switchMap } from 'rxjs';
 import { AccountBook } from 'src/app/entities/account-book';
 import { Account } from 'src/app/entities/account';
 import { CurrentUserService } from 'src/app/services/current-user.service';
 import { Review } from 'src/app/entities/review';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-book-page',
@@ -19,9 +20,12 @@ export class BookPageComponent implements OnInit{
   book: Book;
   rating: number;
   accountBook: AccountBook;
-  reviews: Review[];
-  currentReview: Review = null;
-  constructor(private route: ActivatedRoute, private apiService: ApiService, private currentUserService: CurrentUserService) {}
+  isLoggedIn:boolean;
+  constructor(private route: ActivatedRoute, 
+    private authService: AuthService, 
+    private apiService: ApiService, 
+    private currentUserService: CurrentUserService,
+    private router: Router) {}
 
   ngOnInit() 
   {
@@ -29,20 +33,26 @@ export class BookPageComponent implements OnInit{
       switchMap((params)=> this.apiService.getBook(+params.get('id')))
     ).subscribe((book)=> {
       this.book = book;
+      this.authService.isLoggedIn$.subscribe((data) => {
+        this.isLoggedIn = data;
+      });
       this.apiService.getBookRating(this.book.id).subscribe((rating)=>{
         this.rating = +rating.toFixed(1);
       });
       this.apiService.getBookLink(this.book.id).subscribe((link)=>{
         this.book.link = link;
       });
-      this.currentUserService.currentUser$.pipe(
-        filter((currentUser) => !!currentUser),
-        switchMap((user) => forkJoin({ user: of(user), accountBook: this.apiService.getAccountBook(user?.id, book?.id)}))
-      ).subscribe(({user, accountBook}) => {
-        this.accountBook = accountBook;
-        this.accountBook.account = user;
-        this.accountBook.book = this.book;
-      });
+      if(this.isLoggedIn)
+      {
+        this.currentUserService.currentUser$.pipe(
+          filter((currentUser) => !!currentUser),
+          switchMap((user) => forkJoin({ user: of(user), accountBook: this.apiService.getAccountBook(user?.id, book?.id)}))
+        ).subscribe(({user, accountBook}) => {
+          this.accountBook = accountBook;
+          this.accountBook.account = user;
+          this.accountBook.book = this.book;
+        });
+      }
     });
   }
 
@@ -60,16 +70,34 @@ export class BookPageComponent implements OnInit{
     })
   }
 
-  changeFavourite(){
-    this.accountBook.favourite = !this.accountBook.favourite;
-    this.updateAccountBook(this.accountBook);
+  changeFavourite() {
+    if(this.isLoggedIn)
+    {
+      this.accountBook.favourite = !this.accountBook.favourite;
+      this.updateAccountBook(this.accountBook);
+    }
+    else {
+      this.router.navigate(['/login']);
+    }
   }
-  changeBookmark(){
-    this.accountBook.wanted = !this.accountBook.wanted;
-    this.updateAccountBook(this.accountBook);
+  changeBookmark() {
+    if(this.isLoggedIn)
+    {
+      this.accountBook.wanted = !this.accountBook.wanted;
+      this.updateAccountBook(this.accountBook);
+    }
+    else {
+      this.router.navigate(['/login']);
+    }
   }
-  addToLibrary(){
+  addToLibrary() {
+    if(this.isLoggedIn)
+    {
     this.accountBook.bought = !this.accountBook.bought;
     this.updateAccountBook(this.accountBook);
+    }
+    else {
+      this.router.navigate(['/login']);
+    }
   }
 }

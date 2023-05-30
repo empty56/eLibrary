@@ -1,11 +1,29 @@
 <header>
-  <div class="leftPart">
+  <div class="left-part">
     <button mat-raised-button (click)="home()" >Home</button>
     <button mat-raised-button (click)="myLibrary()" >My library</button>
   </div>
-  <mat-toolbar>
-    <button mat-icon-button (click)="logout()">
-      <mat-icon>logout</mat-icon>
-    </button>
-  </mat-toolbar>
+
+  <div *ngIf="isLoggedIn" class="right-part">
+    <mat-toolbar>
+      <button mat-icon-button (click)="settings(currentUser)">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-toolbar>
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+  
+  <div *ngIf="!isLoggedIn" class="right-part">
+      <button mat-raised-button (click)="toLogin()">
+        Login
+      </button>
+      <button mat-raised-button (click)="toSingUp()">
+        Sign up
+      </button>
+  </div>
+
 </header>

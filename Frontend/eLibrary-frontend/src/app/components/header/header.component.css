@@ -5,23 +5,33 @@ header {
   background-color: #363636;
 }
 
-header mat-toolbar {
-  position: relative;
+header .right-part{
+  width: 50%;
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: flex-end;
-  color: white;
-  background-color: #363636;
+  padding-right: 3%;
 }
-
-header .leftPart {
-  float: left;
-  width: 40%;
-  padding-left:3%;
-}
-header .leftPart button{
+header .right-part button{
   height: 64px;
   border-radius: 0px;
   background-color: #363636;
   color: white;
 }
+
+header .right-part mat-toolbar{
+  width: 5%;
+  background-color: #363636;
+}
+
+header .left-part {
+  width: 50%;
+  padding-left:3%;
+}
+header .left-part button{
+  height: 64px;
+  border-radius: 0px;
+  background-color: #363636;
+  color: white;
+}
+

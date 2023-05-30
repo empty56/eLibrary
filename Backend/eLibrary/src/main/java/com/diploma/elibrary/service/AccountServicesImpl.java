@@ -48,6 +48,14 @@ public class AccountServicesImpl implements AccountService {
         return accountRepository.save(account);
     }
 
+    @Override
+    public Account updateAccountFullName(Long id, Account accountDetails) {
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Account doesn't exist with this id: " + id));
+        account.setFirstname(accountDetails.getFirstname());
+        account.setLastname(accountDetails.getLastname());
+        return accountRepository.save(account);
+    }
 
 
     @Override

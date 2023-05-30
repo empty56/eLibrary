@@ -84,7 +84,7 @@ private baseUrl = "http://localhost:8080/api";
   }
 
   getBookLink(book_id: number): Observable<Link> {
-    return this.http.get<Link>(`${this.baseUrl}/link/${book_id}`);
+    return this.http.get<Link>(`${this.baseUrl}/noauth/link/${book_id}`);
   }
 
   updateLink(link: Link){
@@ -133,6 +133,16 @@ private baseUrl = "http://localhost:8080/api";
 
   getRecommendedBooks(account_id: number): Observable<Book[]> {
     return this.http.get<Book[]>(`${this.baseUrl}/books/recommended/account/${account_id}`);
+  }
+
+  updateAccountFullname(account: Account) {
+    return this.http.put(`${this.baseUrl}/account/update/${account.id}`, account);
+  }
+
+  updatePassword(account_id: number, new_password: string) {
+    let formData = new FormData();
+    formData.append('password', new_password);
+    return this.http.put(`${this.baseUrl}/account/${account_id}/new-password`, formData);
   }
 
 }

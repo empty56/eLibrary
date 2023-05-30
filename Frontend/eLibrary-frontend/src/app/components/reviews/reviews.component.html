@@ -1,18 +1,20 @@
 <div class="content">
-  <div *ngIf="!currentReview">
-    <p class="title">Write your review: </p>
-    <button mat-icon-button *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i" (click)="onStarClick(i+1)" [matTooltip]="ratingId+1" matTooltipPosition="above">
-      <mat-icon>
-          {{showIcon(i)}}
-      </mat-icon>
-    </button>    
-    <div>
-      <button mat-raised-button (click)="openAddReviewDialog()" class="add-review-button">
-        Write review
-      </button>
+  <div *ngIf="isLoggedIn">
+    <div *ngIf="!currentReview">
+      <p class="title">Write your review: </p>
+      <button mat-icon-button *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i" (click)="onStarClick(i+1)" [matTooltip]="ratingId+1" matTooltipPosition="above">
+        <mat-icon>
+            {{showIcon(i)}}
+        </mat-icon>
+      </button>    
+      <div>
+        <button mat-raised-button (click)="openAddReviewDialog()" class="add-review-button">
+          Write review
+        </button>
+      </div>
     </div>
-    
   </div>
+
   <div *ngIf="currentReview" >
     <p class="title">Your review: </p>
     <div class = "review-list">
@@ -35,6 +37,9 @@
     </div>
   </div>
   <p class="title"> Reviews and ratings: </p>
+  <div *ngIf="reviews && reviews.length == 0"> 
+      <p class = "name"> No reviews yet. You can be first!</p>
+  </div>
   <div *ngFor="let item of reviews" class = "review-list">
     <p class = "name">{{item.account.firstname}} {{item.account.lastname}}</p>
     <div class="stars" style="--l:{{item.rating}}"></div>

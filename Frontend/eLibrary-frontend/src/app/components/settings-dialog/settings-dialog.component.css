@@ -1,0 +1,38 @@
+.title {
+  font-size: 30px;
+  font-weight: 500;
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+}
+.container {
+  position: relative;
+  width: 60vh;
+  height: 32vh;
+}
+.row-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2%;
+}
+.row-name button {
+  margin-bottom: 3%;
+}
+.change-password {
+  display: flex;
+  justify-content: center;
+}
+.change-password button {
+  background-color: rgb(181, 66, 66);
+}
+.close {
+  padding-top: 3%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
+}
+.close button {
+  background-color: rgb(107, 124, 130);
+}

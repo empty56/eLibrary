@@ -13,7 +13,7 @@
   <div *ngIf="!isSearched" class="list">
     <div class="col">
       <app-book-list [tag]="'Best rated books'"></app-book-list>
-      <app-book-list [tag]="'Recommendations for you'"></app-book-list>
+      <app-book-list *ngIf="isLoggedIn" [tag]="'Recommendations for you'"></app-book-list>
     </div>
     
   </div>

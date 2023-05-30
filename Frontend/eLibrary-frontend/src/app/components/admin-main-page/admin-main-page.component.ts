@@ -14,17 +14,20 @@ import { LinkListComponentComponent } from '../link-list-dialog/link-list-compon
 @Component({
   selector: 'app-admin-main-page',
   templateUrl: './admin-main-page.component.html',
-  styleUrls: ['./admin-main-page.component.css']
+  styleUrls: ['./admin-main-page.component.css'],
 })
-export class AdminMainPageComponent implements OnInit{
+export class AdminMainPageComponent implements OnInit {
+  account: Account;
 
-  account : Account;
-
-  
-  constructor(private dialog: MatDialog, private authService: AuthService, private router: Router, private currentUserService: CurrentUserService) {}
+  constructor(
+    private dialog: MatDialog,
+    private authService: AuthService,
+    private router: Router,
+    private currentUserService: CurrentUserService
+  ) {}
   ngOnInit(): void {
-      this.getCurrentAccount();
-    }
+    this.getCurrentAccount();
+  }
   openAddBooksDialog(): void {
     this.dialog.open(AddBookDialogComponent);
   }
@@ -32,7 +35,6 @@ export class AdminMainPageComponent implements OnInit{
   openUpdateLinksDialog(): void {
     this.dialog.open(LinkListComponentComponent);
   }
-
 
   openUpdateDeleteBooksDialog(): void {
     this.dialog.open(ManageBooksDialogComponent);
@@ -50,7 +52,6 @@ export class AdminMainPageComponent implements OnInit{
     this.authService.logout();
     this.router.navigate(['/login']);
   }
-
 
   private getCurrentAccount() {
     this.currentUserService.currentUser$.subscribe((data) => {

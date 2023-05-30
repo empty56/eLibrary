@@ -1,16 +1,10 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnInit
-} from '@angular/core';
-import { Router } from '@angular/router';
+import { Component,OnInit } from '@angular/core';
 import { Account } from '../../entities/account';
-import { AuthService } from '../../services/auth.service';
 import { CurrentUserService } from '../../services/current-user.service';
 import { Book } from 'src/app/entities/book';
-import { ApiService } from 'src/app/services/api.service';
 import { FormControl } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-main-page',
@@ -20,13 +14,18 @@ import { ReplaySubject } from 'rxjs';
 export class MainPageComponent implements OnInit {
   account: Account;
   isSearched: boolean = false;
+  isLoggedIn: boolean;
   ngOnInit(): void {
     this.getCurrentAccount();
+    this.authService.isLoggedIn$.subscribe((data)=>{
+      this.isLoggedIn = data;
+    })
   }
 
   constructor(
-    private currentUserService: CurrentUserService
-  ) {}
+    private currentUserService: CurrentUserService,
+    private authService: AuthService
+) {}
 
   destroy: ReplaySubject<any> = new ReplaySubject<any>();
 

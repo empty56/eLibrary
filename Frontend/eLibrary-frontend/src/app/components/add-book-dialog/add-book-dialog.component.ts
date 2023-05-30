@@ -35,9 +35,12 @@ constructor(private dialogRef: MatDialogRef<AddBookDialogComponent>, private fb:
     {
       const book = {...this.bookForm.value, id: 0} as Book;
       this.apiService.addBook(book).subscribe(
-        () => {
-        this.toastr.success('Book was added', 'Successfuly added');
+        (response) => {
+        this.toastr.success('Book was added', 'Successfuly added!');
         this.dialogRef.close();
+      },
+      (error) => {
+        this.toastr.error(error, 'Error adding your book');
       }
       );
       
