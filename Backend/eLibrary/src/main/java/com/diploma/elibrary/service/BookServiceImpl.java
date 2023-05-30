@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -53,6 +54,40 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> getRecommendedBooks(Long account_id) {
+        Account account = accountRepository.findById(account_id).orElseThrow(()->new ResourceNotFoundException("No account with such id"));
+        List<AccountBook> accountBooks =  accountBookRepository.findAccountBooksByAccount(account).orElseGet(ArrayList::new);
+        Map<Long, Double> avgRatings = getAvgRatings();
+        List<String> genres = accountBooks.stream()
+                .map(AccountBook::getBook)
+                .map(Book::getGenre)
+                .distinct()
+                .toList();
+
+        List<String> authors = accountBooks.stream()
+                .map(AccountBook::getBook)
+                .map(Book::getAuthors)
+                .distinct()
+                .toList();
+
+        List<Book> recommendedBooks = getAllBooks().stream()
+                .filter(book -> genres.contains(book.getGenre()) || containsAnyAuthor(book.getAuthors(), authors))
+                .sorted(Comparator.comparingDouble(book -> avgRatings.getOrDefault(book.getId(), 0.0)))
+                .collect(Collectors.toList());
+
+        return recommendedBooks.subList(0, Math.min(recommendedBooks.size(), 4));
+    }
+
+    private boolean containsAnyAuthor(String bookAuthors, List<String> authors) {
+        for (String author : authors) {
+            if (bookAuthors.contains(author)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
@@ -79,6 +114,20 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getBestRatedBooks() {
+        Map<Long, Double> avgRatings = getAvgRatings();
+        int counter= 0;
+        List<Book> bestRatedBooks = new ArrayList<>();
+        for(Map.Entry<Long, Double> entry : avgRatings.entrySet())
+        {
+            if(counter >= 8)
+                break;
+            bestRatedBooks.add(bookRepository.findById(entry.getKey()).orElseThrow(() -> new ResourceNotFoundException("Wrong book_id")));
+            counter++;
+        }
+        return bestRatedBooks;
+    }
+
+    private Map<Long, Double> getAvgRatings(){
         Map<Long, Integer> ratings = new HashMap<>();
         Map<Long, Integer> counters = new HashMap<>();
         List<Review> reviews = reviewService.getAllReviews();
@@ -102,16 +151,7 @@ public class BookServiceImpl implements BookService {
             avgRatings.put(entry.getKey(), Double.valueOf(entry.getValue())/Double.valueOf(counters.get(entry.getKey())));
         }
         avgRatings = sortByValueDesc(avgRatings);
-        int counter= 0;
-        List<Book> bestRatedBooks = new ArrayList<>();
-        for(Map.Entry<Long, Double> entry : avgRatings.entrySet())
-        {
-            if(counter >= 8)
-                break;
-            bestRatedBooks.add(bookRepository.findById(entry.getKey()).orElseThrow(() -> new ResourceNotFoundException("Wrong book_id")));
-            counter++;
-        }
-        return bestRatedBooks;
+        return  avgRatings;
     }
 
     @Override

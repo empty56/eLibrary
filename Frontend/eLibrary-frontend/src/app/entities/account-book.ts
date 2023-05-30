@@ -10,5 +10,4 @@ export class AccountBook {
     wanted: boolean;
     reading: boolean;
     already_read: boolean;
-    currentPage: number;
 }

@@ -91,6 +91,11 @@ public class BookController {
         }
     }
 
+    @GetMapping("/books/recommended/account/{account_id}")
+    public ResponseEntity<List<Book>> getRecommendedBooks(@PathVariable Long account_id) {
+        return ResponseEntity.ok(service.getRecommendedBooks(account_id));
+    }
+
     @GetMapping("/noauth/books/bestRated")
     public ResponseEntity<List<Book>> getBestRatedBooks() {
         return ResponseEntity.ok(service.getBestRatedBooks());

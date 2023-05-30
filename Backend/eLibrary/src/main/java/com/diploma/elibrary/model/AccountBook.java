@@ -33,8 +33,6 @@ public class AccountBook {
     private boolean reading;
     @Column(name = "already_read")
     private boolean already_read;
-    @Column(name = "current_page")
-    private Integer current_page;
 
     @Override
     public String toString() {
@@ -46,7 +44,6 @@ public class AccountBook {
                 ", favourite='" + favourite + '\'' +
                 ", wanted='" + wanted + '\'' +
                 ", already_read='" + already_read + '\'' +
-                ", current_page='" + current_page + '\'' +
                 '}';
     }
 }

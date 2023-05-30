@@ -84,6 +84,7 @@ export class ReviewsComponent {
     this.apiService.deleteReview(this.currentReview.id).subscribe( (resposne) => {
       this.toastr.success('Your review was deleted', 'Successfuly deleted!');
       this.currentReview = null;
+      window.location.reload();
     },
     (error) => {
       this.toastr.error(error, 'Error deleting your review');

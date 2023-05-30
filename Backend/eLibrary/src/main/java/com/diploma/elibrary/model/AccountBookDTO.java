@@ -22,5 +22,4 @@ public class AccountBookDTO {
     private boolean wanted;
     private boolean reading;
     private boolean already_read;
-    private Integer current_page;
 }

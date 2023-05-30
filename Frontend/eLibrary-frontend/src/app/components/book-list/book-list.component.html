@@ -1,5 +1,5 @@
 <h2>
-	Best rated books
+	{{tag}}
 </h2>
 <ul class="tilesWrap">
 	<li *ngFor="let item of firstHalf; index as i;">
@@ -11,13 +11,15 @@
 		<button routerLink="./book/{{item.id}}">Read more</button>
 	</li>
 </ul>
-<ul class="tilesWrap">
-	<li *ngFor="let item of secondHalf; index as i;">
-		<img src={{item.link?.thumbnail_key}}>
-		<h3>{{item.title}}</h3>
-		<p>
-		{{(item.subtitle?.length>trunc)? (item.subtitle | slice:0:trunc)+'...':(item.subtitle)}}
-		</p>
-		<button routerLink="./book/{{item.id}}">Read more</button>
-	</li>
-</ul>
+<div *ngIf="secondHalf">
+	<ul class="tilesWrap">
+		<li *ngFor="let item of secondHalf; index as i;">
+			<img src={{item.link?.thumbnail_key}}>
+			<h3>{{item.title}}</h3>
+			<p>
+			{{(item.subtitle?.length>trunc)? (item.subtitle | slice:0:trunc)+'...':(item.subtitle)}}
+			</p>
+			<button routerLink="./book/{{item.id}}">Read more</button>
+		</li>
+	</ul>
+</div>

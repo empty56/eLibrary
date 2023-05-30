@@ -11,6 +11,10 @@ header mat-toolbar {
   background-color: #363636;
   color: white;
 }
+.col{
+  display: flex;
+  flex-direction: column;
+}
 .list {
   display: flex;
   height: 80vh;

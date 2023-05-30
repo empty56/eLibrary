@@ -131,4 +131,8 @@ private baseUrl = "http://localhost:8080/api";
     return this.http.get(`${this.baseUrl}/download/photo/book/${book_id}`);
   }
 
+  getRecommendedBooks(account_id: number): Observable<Book[]> {
+    return this.http.get<Book[]>(`${this.baseUrl}/books/recommended/account/${account_id}`);
+  }
+
 }

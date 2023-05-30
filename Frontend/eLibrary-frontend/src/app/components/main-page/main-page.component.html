@@ -11,14 +11,18 @@
     </mat-form-field>
   </div>
   <div *ngIf="!isSearched" class="list">
-    <app-book-list></app-book-list>
+    <div class="col">
+      <app-book-list [tag]="'Best rated books'"></app-book-list>
+      <app-book-list [tag]="'Recommendations for you'"></app-book-list>
+    </div>
+    
   </div>
   <div *ngIf="isSearched" class="list">
     <app-search-book-list [search]="searchResult"></app-search-book-list>
   </div>
   <footer>
-  <p>
-    Copywrited by @me
-  </p>
+    <p>
+      Copywrited by @me
+    </p>
   </footer>
 </div>

@@ -21,17 +21,14 @@ public class AccountBookServiceImpl implements AccountBookService {
     private final AccountBookRepository accountBookRepository;
     private final AccountRepository accountRepository;
     private final BookRepository bookRepository;
-    private final LinkRepository linkRepository;
 
     @Autowired
     public AccountBookServiceImpl(AccountBookRepository accountBookRepository,
                                   AccountRepository accountRepository,
-                                  BookRepository bookRepository,
-                                  LinkRepository linkRepository) {
+                                  BookRepository bookRepository) {
         this.accountBookRepository = accountBookRepository;
         this.accountRepository = accountRepository;
         this.bookRepository = bookRepository;
-        this.linkRepository = linkRepository;
     }
     @Override
     public AccountBook getAccountBook(Long account_id, Long book_id) {
@@ -53,8 +50,7 @@ public class AccountBookServiceImpl implements AccountBookService {
                     accountBook.isFavourite(),
                     accountBook.isWanted(),
                     accountBook.isReading(),
-                    accountBook.isAlready_read(),
-                    accountBook.getCurrent_page()));
+                    accountBook.isAlready_read()));
         }
         return accountBookDTOs;
     }
@@ -69,7 +65,6 @@ public class AccountBookServiceImpl implements AccountBookService {
         accountBook.setReading(false);
         accountBook.setAlready_read(false);
         accountBook.setWanted(false);
-        accountBook.setCurrent_page(0);
         return accountBookRepository.save(accountBook);
     }
 
@@ -81,7 +76,6 @@ public class AccountBookServiceImpl implements AccountBookService {
         newAccountBook.setFavourite(accountBookDetails.isFavourite());
         newAccountBook.setReading(accountBookDetails.isReading());
         newAccountBook.setAlready_read(accountBookDetails.isAlready_read());
-        newAccountBook.setCurrent_page(accountBookDetails.getCurrent_page());
         return accountBookRepository.save(newAccountBook);
     }
 
