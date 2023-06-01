@@ -54,6 +54,10 @@ export class HeaderComponent {
     }
   }
 
+  myStats() : void {
+    this.router.navigate(['/library/myStatistics']);
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

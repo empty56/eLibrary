@@ -14,21 +14,22 @@
   
         <ng-container matColumnDef="book_title">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by book title"> Book title </th>
-          <td mat-cell *matCellDef="let element" class="text"> {{(element.book.title?.length>trunc)? (element.book.title | slice:0:trunc)+'...':(element.book.title)}} </td>
+          <!-- {{(element.book.title?.length>trunc)? (element.book.title | slice:0:trunc)+'...':(element.book.title)}}  -->
+          <td mat-cell *matCellDef="let element" class="text"> {{element.book.title}} </td>
         </ng-container>
   
         <ng-container matColumnDef="pdf_key">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by pdf_key" > Pdf key </th>
-          <td mat-cell *matCellDef="let element" class="text"> {{element.pdf_key}} </td>
+          <td mat-cell *matCellDef="let element" class="text"><a href="{{element.pdf_key}}">Pdf file</a></td>
         </ng-container>
   
         <ng-container matColumnDef="audio_key">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by audio_key" > Audio key </th>
-          <td mat-cell *matCellDef="let element" class="text"> {{element.audio_key}} </td>
+          <td mat-cell *matCellDef="let element" class="text"> <a href="{{element.audio_key}}">Audio file</a> </td>
         </ng-container>
         <ng-container matColumnDef="photo_key">
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by photo_key" > Photo key </th>
-            <td mat-cell *matCellDef="let element" class="text"> {{(element.thumbnail_key?.length>trunc)? (element.thumbnail_key | slice:0:trunc)+'...':(element.thumbnail_key)}} </td>
+            <td mat-cell *matCellDef="let element" class="text"> <a href="{{element.thumbnail_key}}">Photo file</a> </td>
         </ng-container>
   
         <ng-container matColumnDef="action">

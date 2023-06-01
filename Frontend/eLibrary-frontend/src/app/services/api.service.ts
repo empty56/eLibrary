@@ -6,6 +6,7 @@ import { Review } from '../entities/review';
 import { Book } from '../entities/book';
 import { Link } from '../entities/link';
 import { AccountBook } from '../entities/account-book';
+import { Statistics } from '../entities/statistics';
 
 @Injectable({
   providedIn: 'root',
@@ -143,6 +144,10 @@ private baseUrl = "http://localhost:8080/api";
     let formData = new FormData();
     formData.append('password', new_password);
     return this.http.put(`${this.baseUrl}/account/${account_id}/new-password`, formData);
+  }
+
+  getStatistics(account_id: number): Observable<Statistics>{
+    return this.http.get<Statistics>(`${this.baseUrl}/statistics/account/${account_id}`);
   }
 
 }

@@ -29,9 +29,10 @@
     color: white;
   }
   .text {
-    width: 35%;
     height: 20%;
-    overflow: visible;
+  }
+  .text a {
+    color: black;
   }
   .action {
     display: flex;

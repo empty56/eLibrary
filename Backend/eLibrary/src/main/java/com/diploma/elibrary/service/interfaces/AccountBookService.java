@@ -1,9 +1,6 @@
 package com.diploma.elibrary.service.interfaces;
 
-import com.diploma.elibrary.model.Account;
-import com.diploma.elibrary.model.AccountBook;
-import com.diploma.elibrary.model.AccountBookDTO;
-import com.diploma.elibrary.model.Book;
+import com.diploma.elibrary.model.*;
 
 import java.util.List;
 
@@ -15,4 +12,5 @@ public interface AccountBookService {
 
     List<AccountBookDTO> getAccountBookByAccount(Long account_id);
 
+    StatisticsDTO getStatistics(Long account_id);
 }

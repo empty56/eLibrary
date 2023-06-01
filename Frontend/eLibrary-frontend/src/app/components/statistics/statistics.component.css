@@ -1,0 +1,100 @@
+.background {
+  position: relative;
+  z-index: 0;
+  height: calc(100% - 64px);
+  background-image: url("stats-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.title {
+  display: flex;
+  justify-content: center;
+  font-size: 100px;
+  font-weight: 550;
+  font-family: Dancing Script;
+}
+
+.numbers {
+  display: flex;
+  font-size: 70px;
+  font-weight: 550;
+  font-family: Dancing Script;
+}
+.text {
+  display: flex;
+  font-size: 30px;
+  font-weight: 400;
+  font-family: Courgette;
+}
+.content {
+  padding: 11% 15%;
+  position: relative;
+}
+.content1 {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 10% 0 0 0%;
+}
+.content2 {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 7% 0 0 0%;
+}
+.content3 {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 10% 0 0 0%;
+}
+.content4 {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 7% 0 0 0%;
+}
+.name {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 7% 0 0 0;
+  display: flex;
+  font-size: 40px;
+  font-weight: 500;
+  font-family: Courgette;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20%;
+}
+.circular--square {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  translate: -50%;
+  border-top-left-radius: 50% 50%;
+  border-top-right-radius: 50% 50%;
+  border-bottom-right-radius: 50% 50%;
+  border-bottom-left-radius: 50% 50%;
+  width: 15%;
+  border: 2px solid black;
+}

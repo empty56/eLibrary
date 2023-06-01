@@ -1,5 +1,6 @@
 package com.diploma.elibrary.repository;
 
+import com.diploma.elibrary.model.Account;
 import com.diploma.elibrary.model.Book;
 import com.diploma.elibrary.model.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,5 @@ import java.util.Optional;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Optional<List<Review>> findAllByBook(Book book);
-
-
-
+    Optional<List<Review>> findReviewsByAccount(Account account);
 }

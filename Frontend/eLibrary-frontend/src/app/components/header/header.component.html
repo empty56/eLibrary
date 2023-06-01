@@ -2,6 +2,7 @@
   <div class="left-part">
     <button mat-raised-button (click)="home()" >Home</button>
     <button mat-raised-button (click)="myLibrary()" >My library</button>
+    <button *ngIf="isLoggedIn" mat-raised-button (click)="myStats()" >My statistics</button>
   </div>
 
   <div *ngIf="isLoggedIn" class="right-part">

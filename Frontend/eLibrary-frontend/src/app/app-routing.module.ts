@@ -7,6 +7,7 @@ import { AdminMainPageComponent } from './components/admin-main-page/admin-main-
 import { authGuard, isLoggedIn } from './helpers/auth.guard';
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { MyLibraryComponent } from './components/my-library/my-library.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'library', component:MainPageComponent},
   {path: 'admin', component: AdminMainPageComponent, canActivate: [authGuard]},
   {path: 'library/book/:id', component: BookPageComponent},
-  {path: 'library/myLibrary', component: MyLibraryComponent}
+  {path: 'library/myLibrary', component: MyLibraryComponent},
+  {path: 'library/myStatistics', component: StatisticsComponent}
 ];
 
 @NgModule({

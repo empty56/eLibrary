@@ -3,10 +3,7 @@ package com.diploma.elibrary.service;
 import com.diploma.elibrary.exception.AlreadyExists;
 import com.diploma.elibrary.exception.ResourceNotFoundException;
 import com.diploma.elibrary.model.*;
-import com.diploma.elibrary.repository.AccountBookRepository;
-import com.diploma.elibrary.repository.AccountRepository;
-import com.diploma.elibrary.repository.BookRepository;
-import com.diploma.elibrary.repository.LinkRepository;
+import com.diploma.elibrary.repository.*;
 import com.diploma.elibrary.service.interfaces.AccountBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,14 +18,17 @@ public class AccountBookServiceImpl implements AccountBookService {
     private final AccountBookRepository accountBookRepository;
     private final AccountRepository accountRepository;
     private final BookRepository bookRepository;
+    private final ReviewRepository reviewRepository;
 
     @Autowired
     public AccountBookServiceImpl(AccountBookRepository accountBookRepository,
                                   AccountRepository accountRepository,
-                                  BookRepository bookRepository) {
+                                  BookRepository bookRepository,
+                                  ReviewRepository reviewRepository) {
         this.accountBookRepository = accountBookRepository;
         this.accountRepository = accountRepository;
         this.bookRepository = bookRepository;
+        this.reviewRepository = reviewRepository;
     }
     @Override
     public AccountBook getAccountBook(Long account_id, Long book_id) {
@@ -70,7 +70,8 @@ public class AccountBookServiceImpl implements AccountBookService {
 
     @Override
     public AccountBook updateAccountBook(Long id, AccountBook accountBookDetails) {
-        AccountBook newAccountBook = accountBookRepository.findById(id).orElseGet(() -> createAccountBook(accountBookDetails.getAccount(), accountBookDetails.getBook()));
+        AccountBook newAccountBook = accountBookRepository.findById(id).orElseGet(
+                () -> createAccountBook(accountBookDetails.getAccount(), accountBookDetails.getBook()));
         newAccountBook.setWanted(accountBookDetails.isWanted());
         newAccountBook.setBought(accountBookDetails.isBought());
         newAccountBook.setFavourite(accountBookDetails.isFavourite());
@@ -82,5 +83,26 @@ public class AccountBookServiceImpl implements AccountBookService {
     @Override
     public void deleteAccountBook(Book book) {
         accountBookRepository.deleteAllByBook(book);
+    }
+
+    @Override
+    public StatisticsDTO getStatistics(Long account_id){
+        int totalPages = 0;
+        int totalFinishedBooks = 0;
+        int totalBooksInLibrary = 0;
+        Account account = accountRepository.findById(account_id).orElseThrow(()-> new RuntimeException("Account not found"));
+        String fullName = account.getFirstname() + " " + account.getLastname();
+        List<AccountBook> accountBooks = accountBookRepository.findAccountBooksByAccount(account).orElseGet(ArrayList::new);
+        int totalReviews = reviewRepository.findReviewsByAccount(account).orElseGet(ArrayList::new).size();
+        for(AccountBook accountBook: accountBooks)
+        {
+            if(accountBook.isBought())
+                totalBooksInLibrary++;
+            if(accountBook.isAlready_read()) {
+                totalPages += accountBook.getBook().getPages();
+                totalFinishedBooks++;
+            }
+        }
+        return new StatisticsDTO(totalPages, totalFinishedBooks, totalBooksInLibrary, totalReviews, fullName);
     }
 }

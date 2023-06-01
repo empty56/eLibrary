@@ -52,6 +52,7 @@ import { AudioPlayerComponent } from './components/audio-player/audio-player.com
 import { BookViewerComponent } from './components/book-viewer/book-viewer.component';
 import { TagedBookListComponent } from './components/taged-book-list/taged-book-list.component';
 import { SettingsDialogComponent } from './components/settings-dialog/settings-dialog.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { SettingsDialogComponent } from './components/settings-dialog/settings-d
     AudioPlayerComponent,
     BookViewerComponent,
     TagedBookListComponent,
-    SettingsDialogComponent
+    SettingsDialogComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,6 @@
 package com.diploma.elibrary.controller;
 
-import com.diploma.elibrary.model.Account;
-import com.diploma.elibrary.model.AccountBook;
-import com.diploma.elibrary.model.AccountBookDTO;
-import com.diploma.elibrary.model.Book;
+import com.diploma.elibrary.model.*;
 import com.diploma.elibrary.service.AccountBookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +40,9 @@ public class AccountBookController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+    @GetMapping("/statistics/account/{account_id}")
+    public ResponseEntity<StatisticsDTO> getAccountStatistics(@PathVariable Long account_id) {
+        return ResponseEntity.ok(service.getStatistics(account_id));
     }
 }
