@@ -1,10 +1,12 @@
 package com.diploma.elibrary.controller;
 
+import com.diploma.elibrary.exception.AuthorizationFailed;
 import com.diploma.elibrary.security.auth.AuthenticationRequest;
 import com.diploma.elibrary.security.auth.AuthenticationResponse;
 import com.diploma.elibrary.security.auth.RegisterRequest;
 import com.diploma.elibrary.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +24,12 @@ public class AuthController {
     }
 
     @PostMapping("/auth")
-    public ResponseEntity<AuthenticationResponse> authentication(@RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok(service.authenticate(request));
+    public ResponseEntity<?> authentication(@RequestBody AuthenticationRequest request) {
+        Object response = service.authenticate(request);
+        if(response.getClass() == AuthorizationFailed.class)
+        {
+            return ResponseEntity.status(HttpStatus.LOCKED).body(response);
+        }
+        return ResponseEntity.ok(response);
     }
 }

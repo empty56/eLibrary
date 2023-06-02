@@ -1,5 +1,6 @@
 package com.diploma.elibrary.service;
 
+import com.diploma.elibrary.exception.AuthorizationFailed;
 import com.diploma.elibrary.model.Account;
 import com.diploma.elibrary.model.Role;
 import com.diploma.elibrary.security.auth.AuthenticationRequest;
@@ -31,13 +32,18 @@ public class AuthenticationService {
         return AuthenticationResponse.builder().token(jwtToken).role(Role.USER).build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request){
+    public Object authenticate(AuthenticationRequest request){
+        var account = accountServices.findByEmail(request.getEmail());
+        if(account.isBlocked())
+        {
+            return new AuthorizationFailed("Your account is blocked");
+        }
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword())
         );
-        var account = accountServices.findByEmail(request.getEmail());
+
         var jwtToken = jwtService.generateToken(account);
         return AuthenticationResponse.builder().token(jwtToken).role(account.getRole()).build();
     }
