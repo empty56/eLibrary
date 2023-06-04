@@ -67,4 +67,9 @@ public class ReviewServiceImpl implements ReviewService {
                 .orElseThrow(() -> new ResourceNotFoundException("Review doesn't exist with this id: " + id));
         reviewRepository.delete(review);
     }
+
+    public void deleteReviewsByBook(Book book) {
+        reviewRepository.deleteReviewsByBook(book);
+    }
+
 }

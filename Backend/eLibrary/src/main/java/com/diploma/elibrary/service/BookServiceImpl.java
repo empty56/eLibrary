@@ -179,6 +179,7 @@ public class BookServiceImpl implements BookService {
     public void deleteBook(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Book doesn't exist with this id: " + id));
+        reviewService.deleteReviewsByBook(book);
         accountBookRepository.deleteAllByBook(book);
         linkService.deleteLinks(book);
         bookRepository.delete(book);

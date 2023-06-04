@@ -14,4 +14,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Optional<List<Review>> findAllByBook(Book book);
     Optional<List<Review>> findReviewsByAccount(Account account);
+
+    void deleteReviewsByBook(Book book);
 }

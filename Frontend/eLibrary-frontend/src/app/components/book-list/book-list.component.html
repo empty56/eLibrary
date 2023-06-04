@@ -1,16 +1,22 @@
 <h2>
 	{{tag}}
 </h2>
-<ul class="tilesWrap">
-	<li *ngFor="let item of firstHalf; index as i;">
-		<img src={{item.link?.thumbnail_key}}>
-		<h3 style="color: white;">{{item.title}}</h3>
-		<p>
-		{{(item.subtitle?.length>trunc)? (item.subtitle | slice:0:trunc)+'...':(item.subtitle)}}
-		</p>
-		<button routerLink="./book/{{item.id}}">Read more</button>
-	</li>
-</ul>
+<div *ngIf="firstHalf.length === 0 && tag == 'Recommendations for you' ">
+	<p class="name">Start reading to get your recommendations.</p>
+</div>
+<div *ngIf="firstHalf">
+	<ul class="tilesWrap">
+		<li *ngFor="let item of firstHalf; index as i;">
+			<img src={{item.link?.thumbnail_key}}>
+			<h3 style="color: white;">{{item.title}}</h3>
+			<p>
+			{{(item.subtitle?.length>trunc)? (item.subtitle | slice:0:trunc)+'...':(item.subtitle)}}
+			</p>
+			<button routerLink="./book/{{item.id}}">Read more</button>
+		</li>
+	</ul>
+</div>
+
 <div *ngIf="secondHalf">
 	<ul class="tilesWrap">
 		<li *ngFor="let item of secondHalf; index as i;">

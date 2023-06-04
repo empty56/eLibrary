@@ -136,3 +136,12 @@ h2{
 	display: flex;
 	justify-content: center;
 }
+
+.name{
+	display: flex;
+	justify-content: center;
+	padding-top: 1%;
+	font-size: 20px;
+	font-weight: 500;
+	font-style: italic;
+}
